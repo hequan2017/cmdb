@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block header-css %}
+    {% endblock %}
+
+
+
+
+{% block page-content-title %} 添加 {% endblock %}
+
+{% block page-nav-tab %}
+ <ol class="breadcrumb">
+                    <li>
+                        <a href="../index.html">首页</a>
+                    </li>
+                    <li>
+                        <a href="sh.html">详情</a>
+                    </li>
+                    <li class="active">
+                        <strong>机柜</strong></li>
+</ol>
+{% endblock %}
+
+
+
+{% block page-content %}
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+
+
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5 >  脚本查看
+                        </h5>
+    <div class="ibox-tools">
+                                <a class="collapse-links">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#">配置选项 1</a>
+                                    </li>
+                                    <li><a href="#">配置选项 2</a>
+                                    </li>
+                                </ul>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                    </div>
+                    <div class="ibox-content">
+
+                      {% for  row  in  obj  %}
+                        <form  class="form-horizontal" method="post"   action="/sh/shedit-{{ row.id }}.html">
+                         {% csrf_token %}
+
+                            <div class="form-group"><label class="col-sm-2 control-label">工具名称</label>
+
+                                <div class="col-lg-4 col-sm-6"><input type="text" class="form-control" name="name"  required=""  value="{{ row.name }}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                       <div class="form-group"><label class="col-sm-2 control-label">脚本</label>
+
+                                <div class="col-lg-6 col-sm-6"><textarea id="code2"  name="tool_script"  >{{ row.tool_script }}</textarea>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+
+                              <div class="form-group"><label class="col-sm-2 control-label">脚本类型</label>
+
+                                <div class="col-lg-4 col-sm-6"><input type="text"  class="form-control" name="tool_run_type"    {% ifequal row.tool_run_type  0 %} value="shell"  {% endifequal %}
+                                            {% ifequal row.tool_run_type  1 %} python {% endifequal %}
+                                               {% ifequal row.tool_run_type  2 %} value="yml" {% endifequal %} required="">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                              <div class="form-group"><label class="col-sm-2 control-label">工具说明</label>
+
+                                <div class="col-lg-4 col-sm-6"><input type="text" class="form-control"   value="{{ row.comment}}"  name="comment"  required="">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+
+                                    <button class="btn btn-primary" type="submit"   >返回</button>
+
+                                </div>
+                            </div>
+                        </form>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+ {% block  js %}
+
+
+<script>
+
+
+         $(document).ready(function(){
+
+
+             var editor_two = CodeMirror.fromTextArea(document.getElementById("code2"), {
+                 lineNumbers: true,
+                 matchBrackets: true,
+                 styleActiveLine: true
+             });
+
+        });
+    </script>{% endblock %}

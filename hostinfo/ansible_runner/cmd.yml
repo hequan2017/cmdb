@@ -1,0 +1,6 @@
+---
+- hosts: all    #hosts中指定
+
+  tasks:
+    - name: "ntpdate"         #- name:任务名称,下面是任务过程
+      shell: 'ntpdate time.nist.gov'

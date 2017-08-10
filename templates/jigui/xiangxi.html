@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+    {% block header-css %}
+    {% endblock %}
+
+
+
+
+{% block page-content-title %} 首页 {% endblock %}
+
+{% block page-nav-tab %}
+
+
+            <ol class="breadcrumb">
+                <li>
+                    <a href="../index.html">首页</a>
+                </li>
+                <li>
+                    <a>详细</a>
+                </li>
+                <li class="active">
+                    <strong>机房：{{ xiangxi_info.name }}  &nbsp;&nbsp;&nbsp;&nbsp;{% if   perms.jigui.change_jiguiinfo %} &nbsp;&nbsp;&nbsp;&nbsp;<a href="/jigui/jiguiedit-{{ xiangxi_info.id }}.html"> 编辑</a>   {% endif %}  {% if  perms.jigui.delete_jiguiinfo   %}|    <a href="/jigui/jiguidel-{{ xiangxi_info.id }}.html">删除</a>{% endif %}</strong>
+                </li>
+            </ol>
+   {% endblock %}
+
+
+
+{% block page-content %}
+
+
+
+
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                   <h4>  <a id="ji" type="button">基本信息 </a> &nbsp;|&nbsp;  <a id="gao" type="button">高级信息 </a></h4>
+
+                    </div>
+
+
+
+                    <div  id='jiben' class="ibox-content no-padding">
+
+
+                        <ul class="list-group">
+
+                            <li class="list-group-item">
+                                <p><a class="text-info" href="#"></a>总数: {{ xiangxi_info.jq}}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><a class="text-info" href="#"></a>在用: {{ xiangxi_info.zy}}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><a class="text-info" href="#"></a>自用: {{ xiangxi_info.ziy}}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><a class="text-info" href="#"></a>在售: {{ xiangxi_info.zs}}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><a class="text-info" href="#"></a>整包: {{ xiangxi_info.zb}}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><a class="text-info" href="#"></a>散户: {{ xiangxi_info.sh}}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <p><a class="text-info" href="#"></a>闲置: {{ xiangxi_info.xz}}</p>
+                            </li>
+                             <li class="list-group-item">
+                                <p><a class="text-info" href="#"></a>状态:
+                                    {% for row in dx %}
+                                      <span> {{ row.xuan }}</span>
+                                   {% endfor %}</p>
+                            </li>
+                          <li class="list-group-item">
+                                <p><a class="text-info" href="#"></a>是否在用: {% ifequal  xiangxi_info.yong  1 %}   在用 {% else %}  没用  {% endifequal %}</p>
+                            </li>
+
+                        </ul>
+                    </div>
+                  <div  id='gaoji' class="ibox-content no-padding">
+                        <ul class="list-group">
+                          <li class="list-group-item">
+                                <p><a class="text-info" href="#"></a>更新时间: {{ xiangxi_info.utime | date:"Y-m-d H:i:s"}}</p>
+                            </li>
+                             <li class="list-group-item">
+                                <p><a class="text-info" href="#"></a>创建时间: {{ xiangxi_info.ctime | date:"Y-m-d H:i:s"}}</p>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+<script>
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,250 @@
+{% extends "base.html" %}
+
+{% block header-css %}
+{% endblock %}
+
+
+
+
+{% block page-content-title %} 脚本 {% endblock %}
+
+{% block page-nav-tab %}
+    <ol class="breadcrumb">
+        <li>
+            <a href="../index.html">首页</a>
+        </li>
+        <li>
+            <a href="sh.html">详情</a>
+        </li>
+        <li class="active">
+            <strong>脚本</strong></li>
+    </ol>
+{% endblock %}
+
+
+
+{% block page-content %}
+
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>机柜 </h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-links">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#">配置选项 1</a>
+                                </li>
+                                <li><a href="#">配置选项 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class="ibox-content">
+
+                        <div class="table-responsive">
+
+
+                            {% if    perms.sh.add_toolsscript %}
+                                <a type="button" class="btn btn-primary " href="{% url    'sh_add' %}">
+                                添加
+                            </a>{% endif %}
+                                 {% if    perms.sh.delete_toolsscript %}
+                                <a class="btn btn-danger" data-toggle="modal"
+                                   data-target="#myModa5">批量删除
+                                </a>
+                        {% endif %}
+                            <form id="del_form_sh" class="form-horizontal">
+
+
+                                <table class="table table-striped table-bordered table-hover dataTables-example">
+                                    <thead>
+
+                                    <tr>
+                                        <th width="20"><input type="checkbox" id="CheckedAll"></th>
+
+                                        <th>工具名称</th>
+                                        <th>脚本类型</th>
+                                        <th>工具说明</th>
+                                        <th>更新时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    {% for row  in sh_list %}
+                                        <tr class="gradeX" nid="{{ row.id }}"
+                                            name="{{ row.name }}">
+
+                                            <td><input type="checkbox" value="{{ row.id }}" name="id"></td>
+                                            <td><a href="/sh/shinfo-{{ row.id }}.html">{{ row.name }}</a></td>
+                                            <td>{% ifequal row.tool_run_type  0 %}shell {% endifequal %}
+                                            {% ifequal row.tool_run_type  1 %} python {% endifequal %}
+                                               {% ifequal row.tool_run_type  2 %} yml {% endifequal %}
+                                            </td>
+                                            <td>{{ row.comment }}</td>
+                                            <td>{{ row.utime }}</td>
+                                            <td noWrap>
+                                                <a href="/sh/shinfo-{{ row.id }}.html" type="button"
+                                                   class="btn btn-primary">
+                                                    查看 </a>
+
+                                             {% if    perms.sh.change_toolsscript %}
+                                                <a href="/sh/shedit-{{ row.id }}.html" type="button"
+                                                   class="btn  btn-warning">
+                                                    编辑 </a> {% endif %}
+                                              {% if    perms.sh.delete_toolsscript %}        <a type="button" class="btn btn-danger  sh_del" data-toggle="modal"
+                                                   data-target="#myModa6">
+                                                    删除 </a>           {% endif %}
+                                              <a type="button" class="btn btn-primary "  href="shell-{{ row.id }}.html"
+                                              >
+                                                    执行 </a>
+
+
+                                            </td>
+
+                                        </tr>
+                                    {% endfor %}
+
+                                    </tbody>
+
+                                </table>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="modal inmodal" id="myModa5" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated fadeIn">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span
+                                aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <i class="fa fa-clock-o modal-icon"></i>
+                        <h4 class="modal-title">批量删除</h4>
+                        <span id="error2" style="color:red;"></span>
+                        <small></small>
+                    </div>
+                    <form id="del_form">
+                        <div class="modal-body">
+
+
+                            <p><strong>确定删除？</strong></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-white" data-dismiss="modal">关闭</button>
+                            <a class="btn btn-danger shall_del ">批量删除</a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal inmodal" id="myModa6" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated fadeIn">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span
+                                aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <i class="fa fa-clock-o modal-icon"></i>
+                        <h4 class="modal-title">删除</h4>
+                        <span id="error3" style="color:red;"></span>
+                        <small></small>
+                    </div>
+                    <form id="del_form1">
+                        <div class="modal-body">
+
+                            <div class="form-group"><input type="text" name="id" style="display:none"/></div>
+                            <p><strong>确定删除？</strong></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-white" data-dismiss="modal">关闭</button>
+                            <a class="btn btn-danger jigui_del " id="sh_del">删除</a>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+{% endblock %}
+
+
+{% block  js %}
+    <script>
+
+
+        $(function () {
+
+
+            $('.shall_del').click(function () {
+                $.ajax({
+                    url: "/sh/shalldel.html",
+                    type: 'POST',
+                    data: $('#del_form_sh').serialize(),
+                    success: function (data) {
+                        var obj = JSON.parse(data);
+                        if (obj.status) {
+                            location.reload()
+                        }
+                    }
+
+                })
+            });
+
+
+            $('.sh_del').click(function () {
+                var id = $(this).parent().parent().attr('nid');
+                var name = $(this).parent().parent().attr('name');
+                $('#del_form1').find('input[name="id"]').val(id);
+
+            });
+
+
+            $('#sh_del').click(function () {
+                $.ajax({
+                    url: "/sh/shdel.html",
+                    type: 'POST',
+                    data: $('#del_form1').serialize(),
+                    success: function (data) {
+                        var obj = JSON.parse(data);
+                        if (obj.status) {
+                            location.reload()
+                        } else {
+                            $('#error3').text(obj.error);
+                        }
+                    }
+
+                })
+
+
+            })
+
+
+        })
+
+
+    </script>
+{% endblock %}

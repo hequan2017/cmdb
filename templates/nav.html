@@ -1,0 +1,68 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element"> <span>
+                            <img alt="image" class="img-circle" src="/static/img/profile_small.jpg"/>
+                             </span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong
+                                    class="font-bold">{{ user }}</strong>
+                             </span> <span class="text-muted text-xs block"> {% ifequal  user.is_superuser  1 %}
+                                管理员 {% else %} 普通用户 {% endifequal %}  <b class="caret"></b></span> </span>
+                    </a>
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a href="#">个人信息</a></li>
+                        <li><a href="#">联系方式</a></li>
+                        <li><a href="#">邮箱</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/logout.html">退出登录</a></li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    cmdbx
+                </div>
+            </li>
+            <li class="active">
+                <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">机柜</span> <span
+                        class="fa arrow"> </span></a>
+                <ul class="nav nav-second-level">
+                    <li class="active">
+                        <a href="{%   url    'jigui'   %}">详情</a></li>
+                    <li><a href="{%   url    'show'   %}">展示</a></li>
+                </ul>
+            </li>
+
+            <li   class="active" >
+                <a href="#"><i class="fa fa-laptop"></i> <span class="nav-label">主机</span> <span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level" >
+                    <li  ><a href="{% url   'host' %}">详情</a></li>
+                    <li><a href="{% url   'cmd' %}">命令行</a></li>
+
+                </ul>
+            </li>
+
+          <li   class="active" >
+                <a href="#"><i class="fa fa-laptop"></i> <span class="nav-label">工具</span> <span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level" >
+                 <li><a href="{% url   'sh' %}">脚本</a></li>
+                </ul>
+            </li>
+
+{% ifequal  user.is_superuser  1 %}
+
+
+          <li class="active">
+              <a href="/admin/"><i class="fa fa-laptop"></i> <span class="nav-label">后台</span>
+                      </a>
+
+            </li>
+        {% endifequal %}
+
+        </ul>
+
+    </div>
+</nav>
+

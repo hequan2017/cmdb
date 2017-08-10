@@ -1,0 +1,80 @@
+{% load cache %}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>首页</title>
+
+
+    {% include 'link_css.html' %}
+    {% block header-css %}
+    {% endblock %}
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    {% cache  1    nav  %}
+    {% include 'nav.html' %}
+    {% endcache%}
+
+
+    <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+            {% include 'navbar-static-top.html' %}
+        </div>
+
+
+      <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>{% block page-content-title %}  {% endblock %}</h2>
+
+
+
+                    {% block page-nav-tab %}
+
+                {% endblock %}
+
+            </div>
+            <div class="col-lg-2">
+
+            </div>
+        </div>
+
+
+        {% block page-content %}
+
+
+        {% endblock %}
+
+        {% include 'footer.html' %}
+    </div>
+
+</div>
+
+</body>
+
+
+</html>
+{#    <script>#}
+{##}
+{##}
+{#         var test = window.location.pathname;#}
+{#         alert(test);#}
+{#         var b = '/host/host.html';#}
+{#         if (test == b) {#}
+{#             var div = document.getElementById('host_xiangxi');#}
+{#             div.setAttribute("class", "active");#}
+{#         }#}
+{##}
+{##}
+{#</script>#}
+ {% include 'foot_script.html' %}
+ {% block  js %} {% endblock %}

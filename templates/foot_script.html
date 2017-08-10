@@ -1,0 +1,205 @@
+<!-- Mainly scripts -->
+<script src="/static/js/jquery-2.1.1.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="/static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/static/js/plugins/jeditable/jquery.jeditable.js"></script>
+<!-- Custom and plugin javascript -->
+<script src="/static/js/inspinia.js"></script>
+<script src="/static/js/plugins/pace/pace.min.js"></script>
+<script src="/static/js/plugins/dataTables/datatables.min.js"></script>
+
+<!-- iCheck -->
+<script src="/static/js/plugins/iCheck/icheck.min.js"></script>
+
+<script src="/static/js/plugins/codemirror/codemirror.js"></script>
+<script src="/static/js/plugins/codemirror/mode/javascript/javascript.js"></script>
+<script src="/static/js/plugins/pace/pace.min.js"></script>
+
+
+<script type="text/JavaScript">
+    $.ajaxSetup({headers: {"X-CSRFToken": '{{ csrf_token }}'}});
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green'
+        });
+    });
+
+    $(document).ready(function () {
+        $("#gaoji").hide();
+        $("#ji").click(function () {
+            $("#jiben").show();
+            $("#gaoji").hide();
+        });
+        $("#gao").click(function () {
+            $("#jiben").hide();
+            $("#gaoji").show();
+        });
+    });
+
+    $(document).ready(function () {
+        $("#toubu").click(function () {
+            $("body").toggleClass("mini-navbar");
+            SmoothlyMenu();
+        });
+    });
+
+    $(document).ready(function () {
+        $(".collapse-links").click(function () {
+            var ibox = $(this).closest('div.ibox');
+            var button = $(this).find('i');
+            var content = ibox.find('div.ibox-content');
+            content.slideToggle(200);
+            button.toggleClass('fa-chevron-up').toggleClass('fa-chevron-down');
+            ibox.toggleClass('').toggleClass('border-bottom');
+            setTimeout(function () {
+                ibox.resize();
+                ibox.find('[id^=map-]').resize();
+            }, 50);
+        });
+    });
+
+
+    $(document).ready(function () {
+        $('.dataTables-example').DataTable({
+
+            initComplete: function () {
+
+                var api = this.api();
+                api.columns().indexes().flatten().each(function (i) {
+                    var column = api.column(i);
+                    var select = $('<select><option value=""> </option> </select>')
+
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            },
+
+
+            "oLanguage": {
+                "sLengthMenu": "每页显示 _MENU_ 条记录",
+                "sZeroRecords": "对不起，查询不到任何相关数据",
+                "sInfo": "当前显示 _START_ 到 _END_ 条，共 _TOTAL_条记录",
+                "sInfoEmtpy": "找不到相关数据",
+                "sInfoFiltered": " 数据表中共为 _MAX_ 条记录",
+                "sProcessing": "正在加载中...",
+                "sSearch": "搜索",
+                "oPaginate": {
+                    "sFirst": "第一页",
+                    "sPrevious": " 上一页 ",
+                    "sNext": " 下一页 ",
+                    "sLast": " 最后一页 "
+                }
+            },
+            "order": [[1, 'asc']],
+            columnDefs: [{
+                'targets': [0],    //都默认不排序
+                'orderable': false
+            }],
+
+
+            dom: '<"html5buttons"B>lTfgitp,',
+
+            buttons: [
+{#                {extend: 'copy'},#}
+{#                {extend: 'csv'},#}
+{#                {extend: 'excel', title: 'ExampleFile'},#}
+{#                {extend: 'pdf', title: 'ExampleFile'},#}
+
+{#                {#}
+{#                    extend: 'print',#}
+{#                    customize: function (win) {#}
+{#                        $(win.document.body).addClass('white-bg');#}
+{#                        $(win.document.body).css('font-size', '10px');#}
+{##}
+{#                        $(win.document.body).find('table')#}
+{#                            .addClass('compact')#}
+{#                            .css('font-size', 'inherit');#}
+{#                    }#}
+{#                }#}
+            ],
+            lengthMenu: [[10, 40, 100, -1], [10, 40, 100, "全部"]]
+        });
+
+
+    });
+
+    $("#CheckedAll").click(function () {
+        if ($(this).is(":checked")) {
+            $("[name=id]:checkbox").prop("checked", true);
+        } else {
+            $("[name=id]:checkbox").prop("checked", false);
+        }
+    });
+
+
+</script>
+
+
+<script>
+
+
+    $(function () {
+        $('#cmd').click(function () {
+            $.ajax({
+                url: "/host/cmd.html",
+                type: 'POST',
+                data: $('#cmd_from').serialize(),
+                success: function (data) {
+                    var obj = JSON.parse(data);
+                    if (obj.status) {
+                        con = "";
+                        $.each(obj, function (data, values) {
+                            $.each(values, function (index, value) {
+                                con += " <pre   >主机: " + value.ip + "\n" + "结果: " + value.data + "</pre>"
+                            })
+                        });
+                        $("#pre").html(con); //把内容入到这个div中即完成
+                    } else {
+                        $('#err').text(obj.error);
+                    }
+
+                }
+
+            })
+        });
+
+
+        $('#yml').click(function () {
+            $.ajax({
+                url: "/host/yml.html",
+                type: 'POST',
+                data: $('#yml_from').serialize(),
+                success: function (data) {
+                    var obj = JSON.parse(data);
+                    $('#yml_result').text(obj.data)
+
+                }
+
+            })
+        })
+
+
+    });
+
+    function clearBody() {
+        location.reload()
+    }
+
+</script>
+

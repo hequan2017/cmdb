@@ -1,0 +1,132 @@
+
+{% extends "base.html" %}
+
+{% block header-css %}
+    {% endblock %}
+
+
+
+
+{% block page-content-title %} 展示 {% endblock %}
+
+{% block page-nav-tab %}
+ <ol class="breadcrumb">
+                    <li>
+                        <a href="../index.html">首页</a>
+                    </li>
+                    <li>
+                        <a>详情</a>
+                    </li>
+                    <li class="active">
+                        <strong> 展示</strong></li>
+</ol>
+{% endblock %}
+
+
+
+{% block page-content %}
+        <div class="wrapper wrapper-content animated fadeInRight chart"    >
+            <div class="row"  >
+                <div class="col-sm-6">
+                    <div class="ibox float-e-margins">
+
+                    <div class="ibox-title">
+                            <h5>机柜</h5>
+                              <div class="ibox-tools">
+                                <a class="collapse-links">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-wrench"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#">配置选项 1</a>
+                                    </li>
+                                    <li><a href="#">配置选项 2</a>
+                                    </li>
+                                </ul>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+
+                        </div>
+
+                    <div class="ibox-content" >
+                        <div   style="height:300px;"id="echarts-line"></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        </div>
+
+
+{% endblock %}
+
+{% block  js %}
+
+    <script src="/static/js/echarts.min.js"></script>
+
+    <script>
+    $(function () {
+        var server_info;
+
+        var myChart = echarts.init(document.getElementById('echarts-line'));
+        var option = {
+            title: {
+                text: '机柜总数'
+            },
+            tooltip: {},
+            legend: {
+                data:['总数']
+            },
+            xAxis: {
+                data: {{ name  | safe }}
+            },
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: {{ jq | safe }}
+            }]
+        };
+        myChart.setOption(option, true);
+
+{#        myChart.showLoading();#}
+        setInterval( function () {
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/jigui/showapi',
+                    dataType: 'json',
+                    success: function (json) {
+                        server_info = eval(json);
+                    }
+                });
+
+                    option.xAxis.data =  server_info.name;
+                    option.series[0].data = server_info.jq;
+{#                    myChart.hideLoading();#}
+                    myChart.setOption(option, true);
+
+                }, 2000);
+
+         window.onresize = function () {
+            myChart.resize();
+        };
+    });
+
+
+
+
+
+
+</script>
+
+
+
+
+{% endblock %}
+

@@ -1,0 +1,741 @@
+{% extends "base.html" %}
+
+{% block header-css %}
+{% endblock %}
+
+
+
+
+{% block page-content-title %}服务器 {% endblock %}
+
+{% block page-nav-tab %}
+    <ol class="breadcrumb">
+        <li>
+            <a href="../index.html">首页</a>
+        </li>
+        <li>
+            <a href="host.html">详情</a>
+        </li>
+        <li class="active">
+            <strong>服务器</strong>
+
+        </li>
+    </ol>
+{% endblock %}
+
+
+
+{% block page-content %}
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>主机</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-links">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#">配置选项 1</a>
+                                </li>
+                                <li><a href="#">配置选项 2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                    <div class="ibox-content">
+
+                        <div class="table-responsive">
+
+                            {% if     perms.hostinfo.add_host %}
+                                <button type="button" class="btn btn-primary  " data-toggle="modal"
+                                        data-target="#myModal">
+                                添加 {% endif %}
+                            </button>
+
+                            {% if     perms.hostinfo.delete_host %}
+                                <a class="btn btn-danger" data-toggle="modal"
+                                   data-target="#myModa6">批量删除
+                                </a>
+                            {% endif %}
+
+                         <a class="btn btn-danger" href="{% url   'history' %}">历史操作</a>
+
+
+                            <form id="del_form_hostall" class="form-horizontal  ">
+                                <table class="table table-striped table-bordered table-hover dataTables-example"
+                                       style="word-break:break-all; word-wrap:break-word;">
+                                    <thead>
+                                    <tr>
+                                        <th width="20"><input type="checkbox" id="CheckedAll"></th>
+                                        <th>主机名</th>
+                                        <th>IP</th>
+                                        <th>版本</th>
+                                        <th>内存</th>
+                                        <th>硬盘</th>
+                                        <th>机房</th>
+                                        <th>变更 <span id="update_error" style="color:red;"> {{ msg }}</span>
+                                        </th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    {% for row  in host_list %}
+
+                                        <tr class="gradeX"   nid="{{ row.id }}" jifang_id="{{ row.jifang_id }}"
+                                            hostname="{{ row.hostname }}" ip="{{ row.ip }}"
+                                            osversion="{{ row.osversion }}"
+                                            memory="{{ row.memory }}" disk="{{ row.disk }}" sn="{{ row.sn }}"
+                                            beizhu="{{ row.beizhu }}" username="{{ row.username }}"
+                                            port="{{ row.port }}"
+                                            cpu_core="{{ row.cpu_core }}" model_name="{{ row.model_name }}"
+                                            beizhu="{{ row.beizhu }}">
+
+                                            <td><input type="checkbox" value="{{ row.id }}" name="id"></td>
+                                            <td>{{ row.hostname }}</td>
+                                            <td>{{ row.ip }}</td>
+                                            <td>{{ row.osversion }}</td>
+                                            <td>{{ row.memory }}</td>
+                                            <td>{{ row.disk }}</td>
+                                            <td noWrap>{{ row.jifang }}</td>
+                                            <td noWrap>
+                                                <button type="button" class="btn btn-primary  host_see"
+                                                        data-toggle="modal"
+                                                        data-target="#myModa4">查看
+                                                </button>
+                                                {% if     perms.hostinfo.change_host %}
+                                                    <button type="button" class="btn btn-warning  host_change"
+                                                            data-toggle="modal" data-target="#myModa2">
+{#                                                        <i class="fa fa-paste"></i>#}
+                                                        编辑
+                                                    </button> {% endif %}
+                                                {% if     perms.hostinfo.change_host %}
+                                                    <a type="button" class="btn btn-success  host_update"
+                                                    >更新
+                                                    </a> {% endif %}
+                                                {% if     perms.hostinfo.delete_host %}
+                                                    <button type="button" class="btn btn-danger   host_del"
+                                                            data-toggle="modal"
+                                                            data-target="#myModa5">删除
+                                                    </button>{% endif %}
+                                             <a type="button" class="btn btn-primary  host_see"
+
+                                                      href="/host/show-{{ row.id }}.html">性能
+                                                </a>
+
+                                            </td>
+
+                                        </tr>
+
+                                    {% endfor %}
+
+                                    </tbody>
+
+
+{#                                                                    <tfoot>#}
+{#                                                                    <tr>#}
+{#                                                                        <th></th>#}
+{#                                                                        <th></th>#}
+{#                                                                        <th></th>#}
+{#                                                                        <th></th>#}
+{#                                                                        <th></th>#}
+{#                                                                        <th></th>#}
+{#                                                                        <th></th>#}
+{#                                                                        <th></th>#}
+{#                                                                    </tr>#}
+{#                                                                    </tfoot>#}
+                                </table>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal inmodal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">添加</h4>
+                    <small class="font-bold"></small>
+                    <span id="error" style="color:red;"></span>
+                </div>
+                <form id="add_form" class="form-horizontal">
+                    <div class="modal-body">
+
+
+                        <div class="form-group"><label class="col-sm-3 control-label">ip：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="ip" class="form-control" placeholder="请输入ip"> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-sm-3 control-label">端口：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="port" class="form-control" value="22" placeholder="请输入端口">
+                                <span
+                                        class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-sm-3 control-label">登陆用户：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="username" class="form-control" value="root"
+                                       placeholder="请输入登陆用户"><span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-sm-3 control-label">密码：</label>
+                            <div class="col-sm-5">
+                                <input type="password" name="password" class="form-control" placeholder="请输入密码"> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">机房：</label>
+                            <div class="col-sm-9">
+                                <select id="jifang1" name="jifang_id">
+                                    {% for op in jifang_list %}
+                                        <option value="{{ op.id }}"> {{ op.caption }} </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                        <a id="host_add" class="btn btn-primary"> 保存 </a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="modal inmodal fade" id="myModa2" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">修改</h4>
+                    <small class="font-bold"></small>
+                    <span id="error1" style="color:red;"></span>
+                </div>
+                <form id="edit_form" class="form-horizontal">
+                    <div class="modal-body">
+
+
+                        <div class="form-group"><input type="text" name="id" style="display:none"/></div>
+                        <div class="form-group"><label class="col-sm-3 control-label">主机名：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="hostname" class="form-control" placeholder="请输入主机"> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-sm-3 control-label">ip：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="ip" class="form-control" placeholder="请输入ip"> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-sm-3 control-label">ssh端口：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="port" class="form-control" placeholder=""> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-sm-3 control-label">用户：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="username" class="form-control" placeholder=""> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-sm-3 control-label">密码：</label>
+                            <div class="col-sm-5">
+                                <input type="password" name="password" id="host_password" class="form-control"
+                                       placeholder=""> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">机房：</label>
+                            <div class="col-sm-9">
+                                <select name="jifang_id">
+                                    {% for op in jifang_list %}
+                                        <option value="{{ op.id }}"> {{ op.caption }} </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group"><label class="col-sm-3 control-label">版本：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="osversion" class="form-control" placeholder="请输入版本"> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-sm-3 control-label">内存：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="memory" class="form-control" placeholder="请输入内存"> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-sm-3 control-label">硬盘：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="disk" class="form-control" placeholder="请输入"> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group"><label class="col-sm-3 control-label">SN：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="sn" class="form-control" placeholder="请输入"> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group"><label class="col-sm-3 control-label">CPU：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="cpu_core" class="form-control" placeholder="请输入CPU"> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group"><label class="col-sm-3 control-label">型号：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="model_name" class="form-control" placeholder="请输入型号"> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group"><label class="col-sm-3 control-label">备注：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="beizhu" class="form-control" placeholder="请输入"> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                        <a id="host_change" class="btn btn-primary">修改</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal inmodal fade" id="myModa4" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">查看</h4>
+                    <small class="font-bold"></small>
+
+                </div>
+                <form id="see_form" class="form-horizontal">
+                    <div class="modal-body">
+
+
+                        <div class="form-group"><label class="col-sm-3 control-label">主机名：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="hostname" class="form-control" placeholder="请输入主机"> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-sm-3 control-label">ip：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="ip" class="form-control" placeholder="请输入ip"> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-sm-3 control-label">ssh端口：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="port" class="form-control" placeholder=""> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-sm-3 control-label">用户：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="username" class="form-control" placeholder=""> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">机房：</label>
+                            <div class="col-sm-9">
+                                <select name="jifang_id">
+                                    {% for op in jifang_list %}
+                                        <option value="{{ op.id }}"> {{ op.caption }} </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group"><label class="col-sm-3 control-label">版本：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="osversion" class="form-control" placeholder="请输入版本"> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-sm-3 control-label">内存：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="memory" class="form-control" placeholder="请输入内存"> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-sm-3 control-label">硬盘：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="disk" class="form-control" placeholder="请输入"> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group"><label class="col-sm-3 control-label">SN：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="sn" class="form-control" placeholder="请输入SN"> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group"><label class="col-sm-3 control-label">CPU：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="cpu_core" class="form-control" placeholder="请输入CPU"> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+                        <div class="form-group"><label class="col-sm-3 control-label">型号：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="model_name" class="form-control" placeholder="请输入型号"> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group"><label class="col-sm-3 control-label">备注：</label>
+                            <div class="col-sm-5">
+                                <input type="text" name="beizhu" class="form-control" placeholder="请输入备注"> <span
+                                    class="help-block m-b-none"></span>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal inmodal" id="myModa5" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated fadeIn">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-clock-o modal-icon"></i>
+                    <h4 class="modal-title">删除</h4>
+                    <span id="error2" style="color:red;"></span>
+                    <small></small>
+                </div>
+                <form id="del_form">
+                    <div class="modal-body">
+
+                        <div class="form-group"><input type="text" name="id" style="display:none"/></div>
+                        <div class="form-group"> 主机：<input type="text" name="hostname"/></div>
+                        <p><strong>确定删除？</strong></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                        <a id="host_del" class="btn btn-danger m-r-sm">删除</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal inmodal" id="myModa6" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated fadeIn">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <i class="fa fa-clock-o modal-icon"></i>
+                    <h4 class="modal-title">批量删除</h4>
+                    <span id="error2" style="color:red;"></span>
+                    <small></small>
+                </div>
+                <form id="del_form">
+                    <div class="modal-body">
+
+
+                        <p><strong>确定删除？</strong></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                        <a class="btn btn-danger m-r-sm  hostall_del"> 批量删除</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block js %}
+
+    <script type="text/JavaScript">
+
+
+
+
+        $(function () {
+            $('.hostall_del').click(function () {
+                $.ajax({
+                    url: "/host/hostall-del.html",
+                    type: 'POST',
+                    data: $('#del_form_hostall').serialize(),
+                    success: function (data) {
+                        var obj = JSON.parse(data);
+                        if (obj.status) {
+                            location.reload()
+                        }
+                    }
+
+                })
+            })
+
+
+
+            $('#host_add').click(function () {
+                $.ajax({
+                    url: "/host/hostadd",
+                    type: 'POST',
+                    {#                 data:{'hostname':$('#host').val(),  'ip':$('#ip').val(),  'osversion':$('#osversion').val(), 'memory':$('#memory').val(), 'disk':$('#disk').val(),'jifang_id':$('#jifang1').val()},#}
+                    data: $('#add_form').serialize(),
+                    success: function (data) {
+                        var obj = JSON.parse(data);
+                        if (obj.status) {
+                            location.reload()
+                        } else {
+                            $('#error').text(obj.error);
+                        }
+                    }
+
+                })
+            })
+
+            $('.host_change').click(function () {
+
+                var id = $(this).parent().parent().attr('nid');
+                $.ajax({
+                    url: "/host/hostpassword",
+                    type: 'POST',
+                    data: {'id': id},
+                    success: function (ret) {
+                        $('#edit_form').find('input[name="password"]').val(ret);
+                    }
+                })
+
+
+                var jifang_id = $(this).parent().parent().attr('jifang_id');
+                var port = $(this).parent().parent().attr('port');
+                var hostname = $(this).parent().parent().attr('hostname');
+                var ip = $(this).parent().parent().attr('ip');
+
+                var osversion = $(this).parent().parent().attr('osversion');
+                var memory = $(this).parent().parent().attr('memory');
+                var disk = $(this).parent().parent().attr('disk');
+                var username = $(this).parent().parent().attr('username');
+                var sn = $(this).parent().parent().attr('sn');
+                var beizhu = $(this).parent().parent().attr('beizhu');
+                var cpu_core = $(this).parent().parent().attr('cpu_core');
+                var model_name = $(this).parent().parent().attr('model_name');
+
+
+                $('#edit_form').find('input[name="id"]').val(id);
+                $('#edit_form').find('select').val(jifang_id);
+                $('#edit_form').find('input[name="port"]').val(port);
+                $('#edit_form').find('input[name="hostname"]').val(hostname);
+                $('#edit_form').find('input[name="ip"]').val(ip);
+                $('#edit_form').find('input[name="osversion"]').val(osversion);
+                $('#edit_form').find('input[name="memory"]').val(memory);
+                $('#edit_form').find('input[name="disk"]').val(disk);
+                $('#edit_form').find('input[name="username"]').val(username);
+                $('#edit_form').find('input[name="sn"]').val(sn);
+                $('#edit_form').find('input[name="beizhu"]').val(beizhu);
+                $('#edit_form').find('input[name="cpu_core"]').val(cpu_core);
+                $('#edit_form').find('input[name="model_name"]').val(model_name);
+
+            })
+
+            $('.host_see').click(function () {
+
+                var jifang_id = $(this).parent().parent().attr('jifang_id');
+                var port = $(this).parent().parent().attr('port');
+                var hostname = $(this).parent().parent().attr('hostname');
+                var ip = $(this).parent().parent().attr('ip');
+                var osversion = $(this).parent().parent().attr('osversion');
+                var memory = $(this).parent().parent().attr('memory');
+                var disk = $(this).parent().parent().attr('disk');
+                var username = $(this).parent().parent().attr('username');
+                var sn = $(this).parent().parent().attr('sn');
+                var beizhu = $(this).parent().parent().attr('beizhu');
+                var cpu_core = $(this).parent().parent().attr('cpu_core');
+                var model_name = $(this).parent().parent().attr('model_name');
+
+
+                $('#see_form').find('select').val(jifang_id);
+                $('#see_form').find('input[name="port"]').val(port);
+                $('#see_form').find('input[name="hostname"]').val(hostname);
+                $('#see_form').find('input[name="ip"]').val(ip);
+                $('#see_form').find('input[name="osversion"]').val(osversion);
+                $('#see_form').find('input[name="memory"]').val(memory);
+                $('#see_form').find('input[name="disk"]').val(disk);
+                $('#see_form').find('input[name="username"]').val(username);
+                $('#see_form').find('input[name="sn"]').val(sn);
+                $('#see_form').find('input[name="beizhu"]').val(beizhu);
+                $('#see_form').find('input[name="cpu_core"]').val(cpu_core);
+                $('#see_form').find('input[name="model_name"]').val(model_name);
+
+
+            })
+
+            $('#host_change').click(function () {
+                $.ajax({
+                    url: "/host/hostchange",
+                    type: 'POST',
+                    data: $('#edit_form').serialize(),
+                    success: function (data) {
+                        var obj = JSON.parse(data);
+                        if (obj.status) {
+                            location.reload()
+                        } else {
+                            $('#error1').text(obj.error);
+                        }
+                    }
+
+                })
+            })
+
+
+            $('.host_del').click(function () {
+                var id = $(this).parent().parent().attr('nid');
+                var hostname = $(this).parent().parent().attr('hostname');
+                $('#del_form').find('input[name="id"]').val(id);
+                $('#del_form').find('input[name="hostname"]').val(hostname);
+            })
+
+
+            $('#host_del').click(function () {
+                $.ajax({
+                    url: "/host/hostdel",
+                    type: 'POST',
+                    data: $('#del_form').serialize(),
+                    success: function (data) {
+                        var obj = JSON.parse(data);
+                        if (obj.status) {
+                            location.reload()
+                        } else {
+                            $('#error2').text(obj.error);
+                        }
+                    }
+
+                })
+            })
+
+
+            $('.host_update').click(function () {
+                var id = $(this).parent().parent().attr('nid');
+                $.ajax({
+                    url: "/host/hostupdate",
+                    type: 'POST',
+                    data: {'id': id},
+                    success: function (data) {
+                        var obj = JSON.parse(data);
+                        if (obj.status) {
+                            location.reload()
+                        } else {
+                            $('#update_error').text(obj.error);
+                        }
+                    }
+
+                })
+            })
+
+
+        });
+    </script>
+
+{% endblock %}

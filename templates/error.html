@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+
+    {% block header-css %}
+    {% endblock %}
+
+
+
+
+{% block page-content %}
+ <div class="row  border-bottom white-bg dashboard-header">
+
+                    <div class="col-sm-3">
+                        <h2>欢迎您，{{ request.session.user }} </h2>
+                        <small>没有权限</small>
+
+                    </div>
+
+
+            </div>
+
+{% endblock %}

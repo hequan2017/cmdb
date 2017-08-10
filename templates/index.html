@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+    {% block header-css %}
+    {% endblock %}
+
+
+
+
+{% block page-content-title %} 首页 {% endblock %}
+
+{% block page-nav-tab %}
+ <ol class="breadcrumb">
+                    <li>
+                        <a href="../index.html">首页</a>
+                    </li>
+                    <li class="active">
+                        <strong>首页</strong></li>
+</ol>
+{% endblock %}
+
+
+
+{% block page-content %}
+  <div class="wrapper wrapper-content animated fadeInRight">
+
+ <div class="row  border-bottom white-bg dashboard-header">
+
+                    <div class="col-sm-3">
+                        <h2>欢迎您，{{ user }} </h2>
+                        <small>您有 42 条未读消息 和 6 条通知.</small>
+                        <ul class="list-group clear-list m-t">
+                            <li class="list-group-item fist-item">
+                                <span class="pull-right">
+                                    09:00 pm
+                                </span>
+                                <span class="label label-success">1</span> 请联系我
+                            </li>
+                            <li class="list-group-item">
+                                <span class="pull-right">
+                                    10:16 am
+                                </span>
+                                <span class="label label-info">2</span> 登记信息
+                            </li>
+                            <li class="list-group-item">
+                                <span class="pull-right">
+                                    08:22 pm
+                                </span>
+                                <span class="label label-primary">3</span> 开新店
+                            </li>
+                            <li class="list-group-item">
+                                <span class="pull-right">
+                                    11:06 pm
+                                </span>
+                                <span class="label label-default">4</span> 请回电话
+                            </li>
+                            <li class="list-group-item">
+                                <span class="pull-right">
+                                    12:00 am
+                                </span>
+                                <span class="label label-primary">5</span> 发邮件
+                            </li>
+                        </ul>
+                    </div>
+
+
+            </div>
+     </div>
+{% endblock %}
