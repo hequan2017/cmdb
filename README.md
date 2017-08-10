@@ -1,17 +1,15 @@
-# cmdbx
-python
+# cmdb
+domo 登录：http://42.62.6.54:8001/index.html        ##做了特殊处理，主机密码错误也可以看见CPU和内存使用率。只限已经添加的 42.62.6.54
 
-domo 登录：http://42.62.6.54:8001/index.html
-
-默认用户名admin ,密码1qaz.2wsx   默认用户名hequan,密码1qaz.2wsx。       默认admin有所有权限， hequan只能查看。
+默认用户名admin ,密码1qaz.2wsx   默认用户名hequan,密码1qaz.2wsx。  dmin有所有权限， hequan只能查看。
 
 后台 登陆：http://42.62.6.54:8001/admin
 
 
 github链接：https://github.com/hequan2017/cmdb
 
-QQ 295631788     博客： http://hequan.blog.51cto.com/
 
+QQ   295631788       博客： http://hequan.blog.51cto.com/
 
 说明：
 
@@ -24,14 +22,18 @@ QQ 295631788     博客： http://hequan.blog.51cto.com/
 django==1.11.3
 ansible==2.3.1.0
 paramiko==2.2.1
-django-suit==2.0a1
-
+django-suit==2.0a1 （pip install https://github.com/darklow/django-suit/tarball/v2  需要从这里下载）(必须用这个版本，其他版本的suit不支持1.11版本django)
+django-crontab==0.7.1
 
 服务器请yum 安装  sshpass ，不然无法获取资产信息。
 
 
 解压完，可直接   python manage.py  runserver  0.0.0.0:8001   运行   打开网页  0.0.0.0:8001端口
 
+
+版本2.1
+1 利用SSH  获取CPU和内存使用率
+2 利用django-crontab 做定时任务，每分钟获取一遍使用率，保存到monitor表里面，与host做关联。
 
 
 版本2.0
@@ -45,6 +47,7 @@ django-suit==2.0a1
 ![图片](https://github.com/hequan2017/cmdb/blob/master/static/img/3.png)
 ![图片](https://github.com/hequan2017/cmdb/blob/master/static/img/4.png)
 ![图片](https://github.com/hequan2017/cmdb/blob/master/static/img/5.png)
+![图片](https://github.com/hequan2017/cmdb/blob/master/static/img/7.png)
 
 后台
 
@@ -53,9 +56,11 @@ django-suit==2.0a1
 
 历史
 
+
 版本更新1.7.5
 
 1 批量执行shell/yml
+
 
 版本更新 1.7
 
@@ -64,17 +69,21 @@ django-suit==2.0a1
 2 更新后台admin模块 为suit v2版本
 
 
+
 版本更新 1.6
 
 1 批量执行命令
+
 
 版本更新1.5.5
 
 1 版本小优化
 
+
 版本更新1.5
 
 1 增加资产更新，分别为 添加 查看 修改 更新 删除。 可真实获取到服务器资产
+
 
 版本更新1.4
 
@@ -82,11 +91,13 @@ django-suit==2.0a1
 
 2 增加历史命令记录
 
+
 版本更新1.3
 
 1 新增主机管理板块，采用模态对话框。
 
 2 增加更新服务器时间板块，采用ansible-playbook ，需要安装 ansible模块。 操作的命令可以看hostinfo/ansible_api/cmd.yml文件
+
 
 版本更新1.2
 
@@ -95,11 +106,13 @@ django-suit==2.0a1
 无添加权限的，看不见 添加板块 ，同时对权限进行判断， 无权限 打不可，显示 error界面。
 2 根据权限 判断 是否为 管理员。
 
+
 版本更新1.1.2
 
 1 修复了echarts 自适应更改大小。
 
 2 更换了admin，采用django-suit 界面更好看，中文化。 需要安装 django-suit 模块。 admin的 帐号密码是 admin 1qaz.2wsx http://42.62.6.54:8001/admin
+
 
 版本更新1.1.1
 
