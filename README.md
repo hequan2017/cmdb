@@ -19,10 +19,15 @@ QQ   295631788       博客： http://hequan.blog.51cto.com/
 
 
 需要安装的模块为
+
 django==1.11.3
+
 ansible==2.3.1.0
+
 paramiko==2.2.1
+
 django-suit==2.0a1 （pip install https://github.com/darklow/django-suit/tarball/v2  需要从这里下载）(必须用这个版本，其他版本的suit不支持1.11版本django)
+
 django-crontab==0.7.1
 
 服务器请yum 安装  sshpass ，不然无法获取资产信息。
@@ -32,11 +37,14 @@ django-crontab==0.7.1
 
 
 版本2.1
+
 1 利用SSH  获取CPU和内存使用率
+
 2 利用django-crontab 做定时任务，每分钟获取一遍使用率，保存到monitor表里面，与host做关联。
 
 
 版本2.0
+
 1 第一版版本功能基本定型。
 分为3块。 基础资源        主机（执行命令）     脚本（shell/python/yml）
 
