@@ -28,5 +28,4 @@ urlpatterns = [
     url(r'^hostapi$', host_show_api,name="hostshowapi"),
     url(r'^hostall-del.html$', hostall_del),
     url(r'^show-(?P<nid>\d+).html$', host_show, name='xiangxi'),
-
 ]

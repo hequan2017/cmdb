@@ -6,8 +6,6 @@ import paramiko
 from django.contrib.auth.decorators import permission_required, login_required
 
 
-
-
 from  hostinfo.ansible_runner.runner import AdHocRunner
 
 
@@ -281,7 +279,7 @@ def host_show(request,nid):#性能展示
                 date.append(i.create_date.strftime("%m-%d %H:%M"))
                 cpu_use.append(i.cpu_use)
                 mem_use.append(i.mem_use)
-        print(mem_use)
+                
         return render(request, 'host/show.html',{'cpu':cpu,'mem':mem,"hostid":nid, 'date':date ,'cpu_use':cpu_use, 'mem_use':mem_use })
     
     except Exception as e:
@@ -303,7 +301,9 @@ def host_show_api(request):#性能展示api
                 date.append(i.create_date.strftime("%m-%d %H:%M"))
                 cpu_use.append(i.cpu_use)
                 mem_use.append(i.mem_use)
+                
         ret = {'date':date ,'cpu_use':cpu_use,'mem_use':mem_use}
+        
         return HttpResponse(json.dumps(ret))
     
     

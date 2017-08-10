@@ -2,8 +2,7 @@
 from __future__ import unicode_literals
 
 import os
-from collections import namedtuple, defaultdict
-
+from collections import namedtuple,defaultdict
 import sys
 sys.path.append('hostinfo/ansible_runner/')
 
@@ -16,10 +15,12 @@ import ansible.constants as C
 from ansible.utils.vars import load_extra_vars
 from ansible.utils.vars import load_options_vars
 
-from inventory import JMSInventory
-from callback import AdHocResultCallback, PlaybookResultCallBack, \
-    CommandResultCallback
-#from common.utils import get_logger
+from  .inventorys   import JMSInventory
+from  .callback    import AdHocResultCallback, PlaybookResultCallBack, CommandResultCallback
+
+
+
+
 
 
 __all__ = ["AdHocRunner", "PlayBookRunner"]
@@ -273,6 +274,7 @@ class AdHocRunner(object):
 
 
 def test_run():
+    pass
     # assets = [
     #     {
     #             "hostname": "192.168.50.210",

@@ -2,6 +2,6 @@
 import sys
 sys.path.append('hostinfo/ansible_runner/')
 from .callback import *
-from .inventory import *
+from .inventorys import *
 from .runner import *
 

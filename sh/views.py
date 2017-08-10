@@ -4,8 +4,13 @@ from hostinfo.models import Host,History
 import json,os
 from django.contrib.auth.decorators import permission_required, login_required
 
+import sys
+sys.path.append('../hostinfo/ansible_runner/')
 
-from  hostinfo.ansible_runner.runner import AdHocRunner,CommandResultCallback,PlayBookRunner
+
+from   hostinfo.ansible_runner.runner     import AdHocRunner,PlayBookRunner
+from   hostinfo.ansible_runner.callback   import CommandResultCallback
+
 
 @login_required(login_url="/login.html", )
 def sh(request):  ##首页
