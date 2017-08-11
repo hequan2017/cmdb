@@ -1,6 +1,5 @@
 # ~*~ coding: utf-8 ~*~
-import sys
-sys.path.append('hostinfo/ansible_runner/')
+
 from hostinfo.models import Host,Monitor
 from hostinfo.views import ssh
 

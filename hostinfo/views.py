@@ -6,7 +6,7 @@ import paramiko
 from django.contrib.auth.decorators import permission_required, login_required
 
 
-from  hostinfo.ansible_runner.runner import AdHocRunner
+from  hostinfo.ansible_runner.runner   import AdHocRunner
 
 
 @login_required(login_url="/login.html")
@@ -39,6 +39,7 @@ def host_add(request):  ##添加
                     },
                 ]
                 task_tuple = (('setup', ''),)
+
                 runner = AdHocRunner(assets)
                 result = runner.run(task_tuple=task_tuple, pattern='all', task_name='Ansible Ad-hoc')
                 data = result['contacted']['host'][0]['ansible_facts']
@@ -212,11 +213,13 @@ def hostupdate(request):  ## 更新
                     "password": password,
                 },
             ]
+            print(1111111111111111)
             task_tuple = (('setup', ''),)
             runner = AdHocRunner(assets)
             result = runner.run(task_tuple=task_tuple, pattern='all', task_name='Ansible Ad-hoc')
             data = result['contacted']['host'][0]['ansible_facts']
             hostname = data['ansible_fqdn']
+            print(hostname)
             osversion = data['ansible_distribution'] + data['ansible_distribution_version']
             disk = str(sum([int(data["ansible_devices"][i]["sectors"]) * \
                         int(data["ansible_devices"][i]["sectorsize"]) / 1024 / 1024 / 1024 \

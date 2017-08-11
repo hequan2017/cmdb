@@ -8,8 +8,8 @@ import sys
 sys.path.append('../hostinfo/ansible_runner/')
 
 
-from   hostinfo.ansible_runner.runner     import AdHocRunner,PlayBookRunner
-from   hostinfo.ansible_runner.callback   import CommandResultCallback
+from   hostinfo.ansible_runner.runner      import AdHocRunner,PlayBookRunner
+from   hostinfo.ansible_runner.callback    import CommandResultCallback
 
 
 @login_required(login_url="/login.html", )

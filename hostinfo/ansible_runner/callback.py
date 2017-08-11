@@ -1,7 +1,7 @@
 # ~*~ coding: utf-8 ~*~
 
-from collections import defaultdict
-from ansible.plugins.callback import CallbackBase
+from  collections import defaultdict
+from  ansible.plugins.callback import CallbackBase
 
 
 class CommandResultCallback(CallbackBase):

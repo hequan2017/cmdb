@@ -5,6 +5,8 @@ from ansible.vars import VariableManager
 from ansible.parsing.dataloader import DataLoader
 
 
+
+
 class JMSHost(Host):
     def __init__(self, asset):
         self.asset = asset

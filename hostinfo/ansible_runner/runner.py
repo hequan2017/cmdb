@@ -10,13 +10,13 @@ from ansible.executor.task_queue_manager import TaskQueueManager
 from ansible.vars import VariableManager
 from ansible.parsing.dataloader import DataLoader
 from ansible.executor.playbook_executor import PlaybookExecutor
-from ansible.playbook.play import Play
+from ansible.playbook.play  import Play
 import ansible.constants as C
-from ansible.utils.vars import load_extra_vars
-from ansible.utils.vars import load_options_vars
+from ansible.utils.vars  import load_extra_vars
+from ansible.utils.vars  import load_options_vars
 
-from  .inventorys   import JMSInventory
-from  .callback    import AdHocResultCallback, PlaybookResultCallBack, CommandResultCallback
+from  .inventorys   import   JMSInventory
+from  .callback     import   AdHocResultCallback, PlaybookResultCallBack, CommandResultCallback
 
 
 
@@ -274,21 +274,21 @@ class AdHocRunner(object):
 
 
 def test_run():
-    pass
-    # assets = [
-    #     {
-    #             "hostname": "192.168.50.210",
-    #             "ip": "192.168.50.210",
-    #             "port": 22,
-    #             "username": "root",
-    #             "password": "XXXXXXX",
-    #     },
-    # ]
-    # task_tuple = (('shell', 'ls'),)
-    # hoc = AdHocRunner(hosts=assets)
-    # hoc.results_callback = CommandResultCallback()
-    # ret = hoc.run(task_tuple)
-    # print(ret)
+
+    assets = [
+         {
+                 "hostname": "192.168.50.231",
+                 "ip": "192.168.50.231",
+                "port": 22,
+                 "username": "root",
+                 "password": "He.he123",
+         },
+     ]
+    task_tuple = (('shell', 'ls'),)
+    hoc = AdHocRunner(hosts=assets)
+    hoc.results_callback = CommandResultCallback()
+    ret = hoc.run(task_tuple)
+    print(ret)
 
     # task_tuple = (('setup',''),)
     # runner = AdHocRunner(assets)

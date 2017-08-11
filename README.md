@@ -33,7 +33,11 @@ django-crontab==0.7.1
 服务器请yum 安装  sshpass ，不然无法获取资产信息。
 
 
-解压完，可直接   python manage.py  runserver  0.0.0.0:8001   运行   打开网页  0.0.0.0:8001端口
+
+解压完，python manage.py crontab add   添加定时任务
+
+
+python manage.py  runserver  0.0.0.0:8001     运行   打开网页  X.X.X.X:8001端口
 
 
 版本2.1
@@ -41,6 +45,7 @@ django-crontab==0.7.1
 1 利用SSH  获取CPU和内存使用率
 
 2 利用django-crontab 做定时任务，每分钟获取一遍使用率，保存到monitor表里面，与host做关联。
+
 
 
 版本2.0
