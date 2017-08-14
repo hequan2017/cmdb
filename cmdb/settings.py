@@ -146,5 +146,5 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 LOGIN_URL = '/login.html'
  #计划任务
 CRONJOBS = [
-    ('* * * * *', 'cmdb.cron.monitor_job', '> /tmp/1234.log')
+    ('* * * * *', 'cmdb.cron.monitor_job', '>> /tmp/1234.log')
 ]

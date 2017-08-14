@@ -213,7 +213,6 @@ def hostupdate(request):  ## 更新
                     "password": password,
                 },
             ]
-            print(1111111111111111)
             task_tuple = (('setup', ''),)
             runner = AdHocRunner(assets)
             result = runner.run(task_tuple=task_tuple, pattern='all', task_name='Ansible Ad-hoc')
