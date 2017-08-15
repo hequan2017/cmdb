@@ -21,6 +21,19 @@
 
         </li>
     </ol>
+
+
+    <form id="webssh_post">
+
+
+        <div class="form-group"><input type="text" name="vm_addr" value="42.62.6.54:22" style="display:none"/></div>
+        <div class="form-group"><input type="text" name="user_name" value="root" style="display:none"/></div>
+        <div class="form-group"><input type="text" name="user_pwd" value="He.he123" style="display:none"/></div>
+
+
+    </form>
+
+
 {% endblock %}
 
 
@@ -68,7 +81,7 @@
                                 </a>
                             {% endif %}
 
-                         <a class="btn btn-danger" href="{% url   'history' %}">历史操作</a>
+                            <a class="btn btn-danger" href="{% url   'history' %}">历史操作</a>
 
 
                             <form id="del_form_hostall" class="form-horizontal  ">
@@ -91,7 +104,7 @@
                                     <tbody>
                                     {% for row  in host_list %}
 
-                                        <tr class="gradeX"   nid="{{ row.id }}" jifang_id="{{ row.jifang_id }}"
+                                        <tr class="gradeX" nid="{{ row.id }}" jifang_id="{{ row.jifang_id }}"
                                             hostname="{{ row.hostname }}" ip="{{ row.ip }}"
                                             osversion="{{ row.osversion }}"
                                             memory="{{ row.memory }}" disk="{{ row.disk }}" sn="{{ row.sn }}"
@@ -115,7 +128,7 @@
                                                 {% if     perms.hostinfo.change_host %}
                                                     <button type="button" class="btn btn-warning  host_change"
                                                             data-toggle="modal" data-target="#myModa2">
-{#                                                        <i class="fa fa-paste"></i>#}
+                                                        {#                                                        <i class="fa fa-paste"></i>#}
                                                         编辑
                                                     </button> {% endif %}
                                                 {% if     perms.hostinfo.change_host %}
@@ -127,9 +140,11 @@
                                                             data-toggle="modal"
                                                             data-target="#myModa5">删除
                                                     </button>{% endif %}
-                                             <a type="button" class="btn btn-primary  host_see"
+                                                <a type="button" class="btn btn-primary  host_see"
 
-                                                      href="/host/show-{{ row.id }}.html">性能
+                                                   href="/host/show-{{ row.id }}.html">性能
+                                                </a>
+                                                <a type="button" class="btn btn-primary  webssh">webssh
                                                 </a>
 
                                             </td>
@@ -141,18 +156,18 @@
                                     </tbody>
 
 
-{#                                                                    <tfoot>#}
-{#                                                                    <tr>#}
-{#                                                                        <th></th>#}
-{#                                                                        <th></th>#}
-{#                                                                        <th></th>#}
-{#                                                                        <th></th>#}
-{#                                                                        <th></th>#}
-{#                                                                        <th></th>#}
-{#                                                                        <th></th>#}
-{#                                                                        <th></th>#}
-{#                                                                    </tr>#}
-{#                                                                    </tfoot>#}
+                                    {#                                                                    <tfoot>#}
+                                    {#                                                                    <tr>#}
+                                    {#                                                                        <th></th>#}
+                                    {#                                                                        <th></th>#}
+                                    {#                                                                        <th></th>#}
+                                    {#                                                                        <th></th>#}
+                                    {#                                                                        <th></th>#}
+                                    {#                                                                        <th></th>#}
+                                    {#                                                                        <th></th>#}
+                                    {#                                                                        <th></th>#}
+                                    {#                                                                    </tr>#}
+                                    {#                                                                    </tfoot>#}
                                 </table>
 
                             </form>
@@ -551,13 +566,16 @@
     </div>
 
 
+
+
+
+
+
 {% endblock %}
 
 {% block js %}
 
     <script type="text/JavaScript">
-
-
 
 
         $(function () {
@@ -574,15 +592,14 @@
                     }
 
                 })
-            })
-
+            });
 
 
             $('#host_add').click(function () {
                 $.ajax({
                     url: "/host/hostadd",
                     type: 'POST',
-                    {#                 data:{'hostname':$('#host').val(),  'ip':$('#ip').val(),  'osversion':$('#osversion').val(), 'memory':$('#memory').val(), 'disk':$('#disk').val(),'jifang_id':$('#jifang1').val()},#}
+                    {#  data:{'hostname':$('#host').val(),  'ip':$('#ip').val(),  'osversion':$('#osversion').val(), 'memory':$('#memory').val(), 'disk':$('#disk').val(),'jifang_id':$('#jifang1').val()},#}
                     data: $('#add_form').serialize(),
                     success: function (data) {
                         var obj = JSON.parse(data);
@@ -594,7 +611,7 @@
                     }
 
                 })
-            })
+            });
 
             $('.host_change').click(function () {
 
@@ -606,7 +623,7 @@
                     success: function (ret) {
                         $('#edit_form').find('input[name="password"]').val(ret);
                     }
-                })
+                });
 
 
                 var jifang_id = $(this).parent().parent().attr('jifang_id');
@@ -638,7 +655,7 @@
                 $('#edit_form').find('input[name="cpu_core"]').val(cpu_core);
                 $('#edit_form').find('input[name="model_name"]').val(model_name);
 
-            })
+            });
 
             $('.host_see').click(function () {
 
@@ -670,7 +687,7 @@
                 $('#see_form').find('input[name="model_name"]').val(model_name);
 
 
-            })
+            });
 
             $('#host_change').click(function () {
                 $.ajax({
@@ -687,7 +704,7 @@
                     }
 
                 })
-            })
+            });
 
 
             $('.host_del').click(function () {
@@ -695,7 +712,7 @@
                 var hostname = $(this).parent().parent().attr('hostname');
                 $('#del_form').find('input[name="id"]').val(id);
                 $('#del_form').find('input[name="hostname"]').val(hostname);
-            })
+            });
 
 
             $('#host_del').click(function () {
@@ -713,7 +730,52 @@
                     }
 
                 })
-            })
+            });
+
+
+            $('.webssh').click(function () {
+
+                var id = $(this).parent().parent().attr('nid');
+                $.ajax({
+                    url: "/host/webssh",
+                    type: 'POST',
+                    data: {'id': id},
+                    success: function (ret) {
+
+                        var obj1 = JSON.parse(ret);
+                        var ip = obj1.ip;
+                        var username = obj1.username;
+                        var password = obj1.password;
+
+                        $.ajax({
+                            url: "http://42.62.6.54:9000/console/login?rnd=" + Math.random(),
+                            method: "POST",
+                            data: {
+                                "vm_addr": ip,
+                                "user_name": username,
+                                "user_pwd": password
+                            },
+                            dataType: "jsonp",
+                            jsonp: 'callback',
+                            jsonpCallback: "callback",
+                            cache: false,
+                            contentType: "application/json;utf-8", /*设置返回类型*/
+                            async: false
+                        }).done(function (data) {
+                            var json = (data);
+                            if (json.ok) {
+                                location.href = "http://42.62.6.54:9000" + json.data;
+                            } else {
+                                alert("登陆失败，请确认您的登陆信息。");
+                            }
+                        }).fail(function () {
+                            alert("未知失败，请联系管理员。");
+                        });
+
+
+                    }
+                })
+            });
 
 
             $('.host_update').click(function () {
@@ -735,7 +797,8 @@
             })
 
 
-        });
+        })
+        ;
     </script>
 
 {% endblock %}

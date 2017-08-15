@@ -37,7 +37,17 @@ django-crontab==0.7.1
 解压完，python manage.py crontab add   添加定时任务
 
 
+执行install_webssh.sh 脚本， 安装webconsole模块。 需要修改的内容，可以看脚本。根据自己的情况修改。
+
+
 python manage.py  runserver  0.0.0.0:8001     运行   打开网页  X.X.X.X:8001端口
+
+
+
+版本2.2
+1 web版本ssh，利用webconsole 。
+![图片](https://github.com/hequan2017/cmdb/blob/master/static/img/8.png)
+
 
 
 版本2.1

@@ -307,8 +307,14 @@ def host_show_api(request):#性能展示api
         ret = {'date':date ,'cpu_use':cpu_use,'mem_use':mem_use}
         
         return HttpResponse(json.dumps(ret))
-    
-    
-    
-    
-    
+
+@login_required(login_url="/login.html")
+def host_web_ssh(request):
+    if request.method == 'POST':
+        id = request.POST.get('id', None)
+        obj = Host.objects.filter(id=id).first()
+        ip = obj.ip+":"+obj.port
+        username = obj.username
+        password = obj.password
+        ret = {"ip":ip,"username":username,'password':password,"static":True}
+        return HttpResponse(json.dumps(ret))

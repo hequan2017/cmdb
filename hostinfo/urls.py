@@ -15,7 +15,7 @@ Including another URLconf
 """
 
 from django.conf.urls import url
-from hostinfo.views import host, cmd, host_add, host_change, host_del,history,hostupdate,host_change_password,hostall_del,host_show,host_show_api
+from hostinfo.views import host, cmd, host_add, host_change, host_del,history,hostupdate,host_change_password,hostall_del,host_show,host_show_api,host_web_ssh
 urlpatterns = [
     url(r'^host.html$', host,name="host"),
     url(r'^cmd.html$', cmd,name="cmd"),
@@ -28,4 +28,5 @@ urlpatterns = [
     url(r'^hostapi$', host_show_api,name="hostshowapi"),
     url(r'^hostall-del.html$', hostall_del),
     url(r'^show-(?P<nid>\d+).html$', host_show, name='xiangxi'),
+    url(r'^webssh$', host_web_ssh, name='webssh'),
 ]
