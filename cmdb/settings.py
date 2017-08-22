@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'jigui.apps.JiguiConfig',
     'index',
     'hostinfo',
-    'sh'
+    'sh',
+    'djcelery',
 ]
 
 MIDDLEWARE = [
@@ -148,3 +149,10 @@ LOGIN_URL = '/login.html'
 CRONJOBS = [
     ('* * * * *', 'cmdb.cron.monitor_job', '>> /tmp/1234.log')
 ]
+import djcelery
+djcelery.setup_loader()
+
+BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_IMPORTS = ('sh.tasks')
+
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
