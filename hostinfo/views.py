@@ -41,7 +41,9 @@ def host_add(request):  ##添加
                 task_tuple = (('setup', ''),)
 
                 runner = AdHocRunner(assets)
+
                 result = runner.run(task_tuple=task_tuple, pattern='all', task_name='Ansible Ad-hoc')
+                print(result)
                 data = result['contacted']['host'][0]['ansible_facts']
                 hostname = data['ansible_fqdn']
                 osversion = data['ansible_distribution'] + data['ansible_distribution_version']
@@ -62,7 +64,7 @@ def host_add(request):  ##添加
                 ret['error'] = 'IP太短了,不能为空'
         except Exception as e:
             ret['status'] = False
-            ret['error'] = '添加请求错误'
+            ret['error'] = '添加请求错误,{}'.format(e)
     return HttpResponse(json.dumps(ret))
 
 
@@ -99,7 +101,7 @@ def host_change(request):  ##编辑
 
         except Exception as e:
             ret['status'] = False
-            ret['error'] = '添加请求错误'
+            ret['error'] = '添加请求错误,{}'.format(e)
         return HttpResponse(json.dumps(ret))
 
 
@@ -269,7 +271,8 @@ def host_show(request,nid):#性能展示
         list = total['data'].split(" ")
         while ''  in list:
             list.remove('')
-        mem = float('%.2f' %(int(list[2])/int(list[1])))
+        mem = float('%.2f' %(int(list[2])/int(list[1])))*100
+
         
 
         all = Monitor.objects.all()

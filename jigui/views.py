@@ -25,6 +25,7 @@ def add(request):  #添加
         yong1 = request.POST.get('yong')
         obj = models.JiguiInfo.objects.create(name=name1, jq=jq1, zy=zy1, ziy=ziy1, zs=zs1, zb=zb1, sh=sh1,xz=xz1,yong=yong1)
 
+
         obj.dx.add(*dx1)
 
         msg = "添加成功"
@@ -118,6 +119,7 @@ def showapi(request):  ## 展示
     ret={'name':name,'jq':jq}
     return  HttpResponse(json.dumps(ret))
 
+
 @login_required(login_url="/login.html")
 @permission_required('jigui.delete_jiguiinfo',login_url='/error.html')
 def delete_jigui(request):##批量删除
@@ -129,3 +131,6 @@ def delete_jigui(request):##批量删除
 
 
     return HttpResponse(json.dumps(ret))
+
+
+

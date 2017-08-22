@@ -13,7 +13,7 @@ def   job(id):  ##计划任务
 		list = total['data'].split(" ")
 		while '' in list:
 			list.remove('')
-		mem = float('%.2f' % (int(list[2]) / int(list[1])))
+		mem = float('%.2f' % (int(list[2]) / int(list[1])))*100
 		Monitor.objects.create(server_id=i.id,cpu_use=cpu,mem_use=mem,)
 		
 

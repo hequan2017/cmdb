@@ -30,75 +30,78 @@
 
 
 
+       <div class="wrapper wrapper-content animated fadeIn">
 
 
-    <div class="wrapper wrapper-content animated fadeInRight">
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                   <h4>  <a id="ji" type="button">基本信息 </a> &nbsp;|&nbsp;  <a id="gao" type="button">高级信息 </a></h4>
-
-                    </div>
-
-
-
-                    <div  id='jiben' class="ibox-content no-padding">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="tabs-container">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#tab-1"> 基本信息</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-2">高级信息</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab-1" class="tab-pane active">
+                                <div class="panel-body">
 
 
-                        <ul class="list-group">
 
-                            <li class="list-group-item">
-                                <p><a class="text-info" href="#"></a>总数: {{ xiangxi_info.jq}}</p>
-                            </li>
-                            <li class="list-group-item">
+                             <p>   <a class="text-info" href="#"></a>总数: {{ xiangxi_info.jq}} </p>
+
+
                                 <p><a class="text-info" href="#"></a>在用: {{ xiangxi_info.zy}}</p>
-                            </li>
-                            <li class="list-group-item">
+
+
                                 <p><a class="text-info" href="#"></a>自用: {{ xiangxi_info.ziy}}</p>
-                            </li>
-                            <li class="list-group-item">
+
+
                                 <p><a class="text-info" href="#"></a>在售: {{ xiangxi_info.zs}}</p>
-                            </li>
-                            <li class="list-group-item">
+
+
                                 <p><a class="text-info" href="#"></a>整包: {{ xiangxi_info.zb}}</p>
-                            </li>
-                            <li class="list-group-item">
+
+
                                 <p><a class="text-info" href="#"></a>散户: {{ xiangxi_info.sh}}</p>
-                            </li>
-                            <li class="list-group-item">
+
+
                                 <p><a class="text-info" href="#"></a>闲置: {{ xiangxi_info.xz}}</p>
-                            </li>
-                             <li class="list-group-item">
+
+
                                 <p><a class="text-info" href="#"></a>状态:
                                     {% for row in dx %}
                                       <span> {{ row.xuan }}</span>
                                    {% endfor %}</p>
-                            </li>
-                          <li class="list-group-item">
+
+
                                 <p><a class="text-info" href="#"></a>是否在用: {% ifequal  xiangxi_info.yong  1 %}   在用 {% else %}  没用  {% endifequal %}</p>
-                            </li>
 
-                        </ul>
-                    </div>
-                  <div  id='gaoji' class="ibox-content no-padding">
-                        <ul class="list-group">
-                          <li class="list-group-item">
-                                <p><a class="text-info" href="#"></a>更新时间: {{ xiangxi_info.utime | date:"Y-m-d H:i:s"}}</p>
-                            </li>
-                             <li class="list-group-item">
-                                <p><a class="text-info" href="#"></a>创建时间: {{ xiangxi_info.ctime | date:"Y-m-d H:i:s"}}</p>
-                            </li>
 
-                        </ul>
+
+
+                                </div>
+                            </div>
+                            <div id="tab-2" class="tab-pane">
+                                <div class="panel-body">
+                                    <p><a class="text-info" href="#"></a>更新时间: {{ xiangxi_info.utime | date:"Y-m-d H:i:s"}}</p>
+                                      <p><a class="text-info" href="#"></a>创建时间: {{ xiangxi_info.ctime | date:"Y-m-d H:i:s"}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
 
             </div>
+
+
+
         </div>
 
 
-    </div>
+
+
+
 <script>
 
 </script>
