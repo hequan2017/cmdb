@@ -1,5 +1,5 @@
-# cmdb
-domo
+# CMDB
+DEMO
 -------
 登录：`http://42.62.6.54:8001/index.html`       ##做了特殊处理，主机密码错误也可以看见CPU和内存使用率。只限已经添加的 42.62.6.54
 
@@ -33,19 +33,19 @@ QQ   295631788       博客： `http://hequan.blog.51cto.com/`
 配置 celery 异步任务
 
 
-`wget   http://download.redis.io/releases/redis-4.0.1.tar.gz
+`wget   http://download.redis.io/releases/redis-4.0.1.tar.gz`
 
-tar xzf redis-4.0.1.tar.gz
+`tar xzf redis-4.0.1.tar.gz`
 
-cd redis-4.0.1
+`cd redis-4.0.1`
 
-make
+`make`
 
-nohup  src/redis-server  > /dev/null  2>&1  &
+`nohup  src/redis-server  > /dev/null  2>&1  &`
 
-nohup python manage. py celery worker —loglevel = info    > /dev/null  2>&1  &
+`nohup python manage. py celery worker —loglevel = info    > /dev/null  2>&1  &`
 
-python manage.py migrate`
+`python manage.py migrate`
 
 
 
