@@ -41,12 +41,14 @@ QQ   295631788       博客： `http://hequan.blog.51cto.com/`
 
 `make`
 
-`nohup  src/redis-server  > /dev/null  2>&1  &`
+`nohup  src/redis-server  > /dev/null  2>&1  &`##启动redis
 
-`nohup python manage. py celery worker —loglevel = info    > /dev/null  2>&1  &`
+`python manage.py  runserver  0.0.0.0:8001`  ##先启动服务
 
-`python manage.py migrate`
+`python manage.py migrate`   #生成表
+`nohup python manage.py celery worker  -c  4   --loglevel=info    > /dev/null  2>&1  &`   ##启动worker
 
+`nohup   python manage.py celery beat    > /dev/null  2>&1  &`  ##启动任务调度器
 
 
 celery 任务 在 sh.tasks 里面
@@ -55,7 +57,7 @@ celery 任务 在 sh.tasks 里面
 执行install_webssh.sh 脚本， 安装webconsole模块。 需要修改的内容，可以看脚本。根据自己的情况修改。
 
 
-`python manage.py  runserver  0.0.0.0:8001`    运行   打开网页  X.X.X.X:8001端口
+
 
 
 版本2.3
