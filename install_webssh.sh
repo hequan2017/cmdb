@@ -1,16 +1,15 @@
 #!/bin/bash
 
-wegt  https://storage.googleapis.com/golang/go1.8.1.linux-amd64.tar.gz
+wget  https://storage.googleapis.com/golang/go1.8.1.linux-amd64.tar.gz
 tar zxvf go1.8.1.linux-amd64.tar.gz -C /usr/local
 echo 'export PATH="/usr/local/go/bin:$PATH"' >> /etc/profile
-source /etc/profile
-cd /opt && git clone --recurse-submodules https://github.com/shibingli/webconsole.git && cd webconsole && git submodule update --init --recursive
+source    /etc/profile
+cd  /opt && git clone --recurse-submodules https://github.com/shibingli/webconsole.git && cd webconsole && git submodule update --init --recursive
 cd /opt/webconsole/src/apibox.club/apibox
 GOPATH=/opt/webconsole go install
 
 
 ##以下为需要修改的内容。
-
 
 #vim /opt/webconsole/conf/conf.json
 
