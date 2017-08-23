@@ -17,7 +17,7 @@ DEMO
 * 博客： `http://hequan.blog.51cto.com/`
 
 
-* 群 号：`620176501` <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=6e3ddd6808d0e574e8e988d4762b159ea644734f5f09cb91e276184be595c7ba"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="2016" title="2016"></a>
+* 群 号：`620176501`   <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=bbe5716e8bd2075cb27029bd5dd97e22fc4d83c0f61291f47ed3ed6a4195b024"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="cmdb开发讨论群" title="cmdb开发讨论群"></a>
 
 
 部署说明
