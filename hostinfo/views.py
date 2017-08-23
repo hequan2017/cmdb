@@ -1,7 +1,6 @@
 from  django.shortcuts import render, redirect, HttpResponse
 from hostinfo.models import Host, History,Business,Monitor
 import json
-from datetime import datetime
 import paramiko
 from django.contrib.auth.decorators import permission_required, login_required
 

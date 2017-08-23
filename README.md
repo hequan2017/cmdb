@@ -4,25 +4,28 @@ DEMO
 ![图片](https://github.com/hequan2017/cmdb/blob/master/static/img/111.png)
 
 
-登录：`http://42.62.6.54:8001/index.html`       ##做了特殊处理，主机密码错误也可以看见CPU和内存使用率。只限已经添加的 42.62.6.54
+* 登录：`http://42.62.6.54:8001/index.html`       ##做了特殊处理，主机密码错误也可以看见CPU和内存使用率。只限已经添加的 42.62.6.54
 
-默认用户名`admin` ,密码`1qaz.2wsx`
+* 默认用户名`admin` ,密码`1qaz.2wsx`
 
-后台 登陆：  `http://42.62.6.54:8001/admin`
-
-
-github链接：`https://github.com/hequan2017/cmdb`
+* 后台 登陆：  `http://42.62.6.54:8001/admin`
 
 
-QQ   295631788       博客： `http://hequan.blog.51cto.com/`
+* github链接：`https://github.com/hequan2017/cmdb`
+
+
+* 博客： `http://hequan.blog.51cto.com/`
+
+
+* 群 号：`620176501` <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=6e3ddd6808d0e574e8e988d4762b159ea644734f5f09cb91e276184be595c7ba"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="2016" title="2016"></a>
 
 
 部署说明
 -------------------
 
-环境 python3.6.1  django1.11.4
+* 环境 python3.6.1  django1.11.4
 
-执行 `pip install -r requirements.txt` 安装所需的模块
+* 执行 `pip install -r requirements.txt` 安装所需的模块
 
 
 特殊: `pip install https://github.com/darklow/django-suit/tarball/v2`  需要从这里下载  必须用这个版本，其他版本的suit不支持1.11版本django
@@ -31,9 +34,9 @@ QQ   295631788       博客： `http://hequan.blog.51cto.com/`
 服务器请yum 安装  `sshpass` ，不然无法获取资产信息。
 
 
-配置 celery 异步任务
+* 配置 celery 异步任务
 
-执行install_redis
+执行`install_redis.sh`
 
 `python manage.py  runserver  0.0.0.0:8001`  ##先启动服务
 
@@ -44,11 +47,11 @@ QQ   295631788       博客： `http://hequan.blog.51cto.com/`
 `nohup   python manage.py celery beat    > /dev/null  2>&1  &`  ##启动任务调度器
 
 
-进入后台 设置djcelery 定时任务， 每分钟 执行一遍 monitor_job ,不然图 获取不到数据。celery 任务 在 sh.tasks 里面
+进入后台 设置djcelery 定时任务， 每分钟 执行一遍 monitor_job ,不然图 获取不到数据 celery 任务 在 sh.tasks 里面
 
 
 
-执行install_webssh.sh 脚本， 安装webconsole模块。 需要修改的内容，可以看脚本。根据自己的情况修改。
+* 执行install_webssh.sh 脚本， 安装webconsole模块。 需要修改的内容，可以看脚本。根据自己的情况修改。
 
 
 
@@ -56,7 +59,7 @@ QQ   295631788       博客： `http://hequan.blog.51cto.com/`
 
 版本2.3
 -------
-1 celery 异步任务。  可进后台  点击 首页 › Djcelery ›    进行管理
+1. celery 异步任务。  可进后台  点击 首页 › Djcelery ›    进行管理
 ![图片](https://github.com/hequan2017/cmdb/blob/master/static/img/9.png)
 
 
@@ -64,25 +67,25 @@ QQ   295631788       博客： `http://hequan.blog.51cto.com/`
 
 版本2.2
 -------
-1 web版本ssh，利用webconsole 。
+1. web版本ssh，利用webconsole 。
 ![图片](https://github.com/hequan2017/cmdb/blob/master/static/img/8.png)
 
 
 
 版本2.1
 -------
-1 利用SSH  获取CPU和内存使用率
+1. 利用SSH  获取CPU和内存使用率
 
-2 利用django-crontab 做定时任务，每分钟获取一遍使用率，保存到monitor表里面，与host做关联。
+2. 利用django-crontab 做定时任务，每分钟获取一遍使用率，保存到monitor表里面，与host做关联。
 
 
 
 版本2.0
 -------
-1 第一版版本功能基本定型。
+1. 第一版版本功能基本定型。
 分为3块。 基础资源        主机（执行命令）     脚本（shell/python/yml）
 
-2 接下来主要开发 利用zabbix api 调取数据 出图（暂未实现）
+2. 接下来主要开发 利用zabbix api 调取数据 出图（暂未实现）
 
 ![图片](https://github.com/hequan2017/cmdb/blob/master/static/img/1.png)
 ![图片](https://github.com/hequan2017/cmdb/blob/master/static/img/2.png)
@@ -101,7 +104,7 @@ QQ   295631788       博客： `http://hequan.blog.51cto.com/`
 
 
 历史
--------
+------------------------``
 
 版本更新1.7.5
 
