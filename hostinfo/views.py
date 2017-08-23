@@ -43,9 +43,9 @@ def host_add(request):  ##添加
                 runner = AdHocRunner(assets)
 
                 result = runner.run(task_tuple=task_tuple, pattern='all', task_name='Ansible Ad-hoc')
-                print(result)
                 data = result['contacted']['host'][0]['ansible_facts']
-                hostname = data['ansible_fqdn']
+                print(data)
+                hostname = data['ansible_nodename']
                 osversion = data['ansible_distribution'] + data['ansible_distribution_version']
                 disk = str(sum([int(data["ansible_devices"][i]["sectors"]) * \
                                 int(data["ansible_devices"][i]["sectorsize"]) / 1024 / 1024 / 1024 \
@@ -219,8 +219,8 @@ def hostupdate(request):  ## 更新
             runner = AdHocRunner(assets)
             result = runner.run(task_tuple=task_tuple, pattern='all', task_name='Ansible Ad-hoc')
             data = result['contacted']['host'][0]['ansible_facts']
-            hostname = data['ansible_fqdn']
-            print(hostname)
+            hostname = data['ansible_nodename']
+
             osversion = data['ansible_distribution'] + data['ansible_distribution_version']
             disk = str(sum([int(data["ansible_devices"][i]["sectors"]) * \
                         int(data["ansible_devices"][i]["sectorsize"]) / 1024 / 1024 / 1024 \
@@ -273,8 +273,6 @@ def host_show(request,nid):#性能展示
             list.remove('')
         mem = float('%.2f' %(int(list[2])/int(list[1])))*100
 
-        
-
         all = Monitor.objects.all()
         date = []
         cpu_use = []
@@ -293,6 +291,8 @@ def host_show(request,nid):#性能展示
         msg = "账号密码错误，请修改"
         return render(request, 'host/host.html', {"host_list": host, "jifang_list": jifang_list,'msg':msg,})
 
+
+
 @login_required(login_url="/login.html")
 def host_show_api(request):#性能展示api
     if request.method == 'GET':
@@ -310,6 +310,8 @@ def host_show_api(request):#性能展示api
         ret = {'date':date ,'cpu_use':cpu_use,'mem_use':mem_use}
         
         return HttpResponse(json.dumps(ret))
+
+
 
 @login_required(login_url="/login.html")
 def host_web_ssh(request):
