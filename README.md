@@ -22,7 +22,7 @@ QQ   295631788       博客： `http://hequan.blog.51cto.com/`
 
 环境 python3.6.1  django1.11.4
 
-# 可以执行 `pip install -r requirements.txt` 安装所需的模块
+可以执行 `pip install -r requirements.txt` 安装所需的模块
 
 
 特殊: `pip install https://github.com/darklow/django-suit/tarball/v2`  需要从这里下载  必须用这个版本，其他版本的suit不支持1.11版本django
@@ -31,7 +31,7 @@ QQ   295631788       博客： `http://hequan.blog.51cto.com/`
 服务器请yum 安装  `sshpass` ，不然无法获取资产信息。
 
 
-# 配置 celery 异步任务
+配置 celery 异步任务
 
 `wget   http://download.redis.io/releases/redis-4.0.1.tar.gz`
 
@@ -59,7 +59,7 @@ QQ   295631788       博客： `http://hequan.blog.51cto.com/`
 celery 任务 在 sh.tasks 里面
 
 
-# 执行install_webssh.sh 脚本， 安装webconsole模块。 需要修改的内容，可以看脚本。根据自己的情况修改。
+执行install_webssh.sh 脚本， 安装webconsole模块。 需要修改的内容，可以看脚本。根据自己的情况修改。
 
 
 
