@@ -7,8 +7,7 @@ import threading,time
 
 platforms.C_FORCE_ROOT = True
 
-app= Celery(broker='redis://0.0.0.0',
-            backend='redis://0.0.0.0',)
+app= Celery(broker="redis://127.0.0.1:6379/0",)
 
 
 
@@ -25,7 +24,7 @@ def sendmail(mail):
     print('mail sent.')
     return mail['to']
 
-
+@app.task
 def job(id):  ##计划任务
 
     i = Host.objects.filter(id=id).first()
@@ -48,9 +47,6 @@ def job(id):  ##计划任务
     in_network = int((int(in4[1]) - int(in2[1]))/1024/10*8)
     out_network = int((int(in4[9]) - int(in2[9]))/1024/10*8)
     Monitor.objects.create(server_id=i.id, cpu_use=cpu, mem_use=mem,in_use=in_network,out_use=out_network)
-
-
-
 
 
 

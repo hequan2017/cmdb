@@ -25,26 +25,46 @@ DEMO
 
 * 环境 python3.6.1  django1.11.4
 
-* 执行 `pip install -r requirements.txt` 安装所需的模块
-
-特殊: `pip install https://github.com/darklow/django-suit/tarball/v2`  需要从这里下载  必须用这个版本，其他版本的suit不支持1.11版本django
 
 服务器请yum 安装  `sshpass` ，不然无法获取资产信息。
+
+
+`git  clone  git@github.com:hequan2017/cmdb.git`
+
+`cd cmdb/`
+
+`pip install -r requirements.txt`     安装所需的模块
+
+`pip install https://github.com/darklow/django-suit/tarball/v2`  需要从这里下载  必须用这个版本，其他版本的suit不支持1.11版本django
+
+
+
 
 * 配置 celery 异步任务
 
 执行`install_redis.sh` ,启动 `nohup  src/redis-server  > /dev/null  2>&1  &`
 
 
+`python manage.py makemigrations  djkombu   djcelery`
+
+
+`python manage.py  migrate`
+
+
 `nohup python manage.py celery worker  -c  4   --loglevel=info    > /dev/null  2>&1  &`   ##启动worker
+
 
 `nohup   python manage.py celery beat    > /dev/null  2>&1  &`  ##启动任务调度器
 
 
-* 执行install_webssh.sh 脚本， 安装webconsole模块。 需要修改的内容，可以看脚本。根据自己的情况修改。
+
+* 执行`install_webssh.sh` 脚本， 安装`webconsole`模块。   需要修改的内容，可以看脚本。根据自己的情况修改。
+
 
 
 `python manage.py  runserver  0.0.0.0:8001`  ##启动服务
+
+
 
 
 版本2.3

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'hostinfo',
     'sh',
     'djcelery',
+    'djkombu',
 ]
 
 MIDDLEWARE = [
@@ -154,10 +155,8 @@ import djcelery
 djcelery.setup_loader()
 
 BROKER_URL = 'redis://127.0.0.1:6379/0'
-BACKEND_URL = 'redis://127.0.0.1:6379/0'
-
 
 CELERY_IMPORTS = ('sh.tasks')
-CELERY_ALWAYS_EAGER = True
+
 
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
