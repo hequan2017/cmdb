@@ -1,6 +1,11 @@
 # CMDB
 DEMO
 -------
+![图片](https://github.com/hequan2017/cmdb/blob/master/static/img/111.png)
+
+
+
+
 登录：`http://42.62.6.54:8001/index.html`       ##做了特殊处理，主机密码错误也可以看见CPU和内存使用率。只限已经添加的 42.62.6.54
 
 默认用户名`admin` ,密码`1qaz.2wsx`
