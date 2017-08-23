@@ -84,8 +84,8 @@ class Monitor(models.Model):
     server = models.ForeignKey('Host')
     cpu_use = models.CharField(verbose_name='CPU使用率',max_length=32,null=True)
     mem_use = models.CharField(verbose_name='内存使用率', max_length=32, null=True)
-    # in_use = models.CharField(verbose_name='进流量', max_length=32, null=True)
-    # out_use = models.CharField(verbose_name='出流量', max_length=32, null=True)
+    in_use = models.CharField(verbose_name='进流量', max_length=32, null=True)
+    out_use = models.CharField(verbose_name='出流量', max_length=32, null=True)
 
     create_date = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
     update_date = models.DateTimeField(auto_now=True, null=True, verbose_name='更新时间')

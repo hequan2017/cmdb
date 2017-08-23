@@ -1,21 +1,21 @@
 # CMDB
-DEMO
+
+架构
 ----------------
 ![图片](https://github.com/hequan2017/cmdb/blob/master/static/img/111.png)
 
 
+DEMO
+---------------
 * 登录：`http://42.62.6.54:8001/index.html`       ##做了特殊处理，主机密码错误也可以看见CPU和内存使用率。只限已经添加的 42.62.6.54
 
 * 默认用户名`admin` ,密码`1qaz.2wsx`
 
 * 后台 登陆：  `http://42.62.6.54:8001/admin`
 
-
 * github链接：`https://github.com/hequan2017/cmdb`
 
-
 * 博客： `http://hequan.blog.51cto.com/`
-
 
 * 群 号：`620176501`   <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=bbe5716e8bd2075cb27029bd5dd97e22fc4d83c0f61291f47ed3ed6a4195b024"><img border="0" src="https://github.com/hequan2017/cmdb/blob/master/static/img/group.png"  alt="cmdb开发讨论群" title="cmdb开发讨论群"></a>
 
@@ -27,34 +27,24 @@ DEMO
 
 * 执行 `pip install -r requirements.txt` 安装所需的模块
 
-
 特殊: `pip install https://github.com/darklow/django-suit/tarball/v2`  需要从这里下载  必须用这个版本，其他版本的suit不支持1.11版本django
-
 
 服务器请yum 安装  `sshpass` ，不然无法获取资产信息。
 
-
 * 配置 celery 异步任务
 
-执行`install_redis.sh`
+执行`install_redis.sh` ,启动 `nohup  src/redis-server  > /dev/null  2>&1  &`
 
-`python manage.py  runserver  0.0.0.0:8001`  ##先启动服务
-
-`python manage.py migrate`   #生成表
 
 `nohup python manage.py celery worker  -c  4   --loglevel=info    > /dev/null  2>&1  &`   ##启动worker
 
 `nohup   python manage.py celery beat    > /dev/null  2>&1  &`  ##启动任务调度器
 
 
-进入后台 设置djcelery 定时任务， 每分钟 执行一遍 monitor_job ,不然图 获取不到数据 celery 任务 在 sh.tasks 里面
-
-
-
 * 执行install_webssh.sh 脚本， 安装webconsole模块。 需要修改的内容，可以看脚本。根据自己的情况修改。
 
 
-
+`python manage.py  runserver  0.0.0.0:8001`  ##启动服务
 
 
 版本2.3

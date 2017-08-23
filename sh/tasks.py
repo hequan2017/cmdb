@@ -2,7 +2,7 @@ import time
 from celery import Celery, platforms
 from hostinfo.models import Host,Monitor
 from hostinfo.views import ssh
-import threading
+import threading,time
 
 
 platforms.C_FORCE_ROOT = True
@@ -36,7 +36,23 @@ def job(id):  ##计划任务
     while '' in list:
         list.remove('')
     mem = float('%.2f' % (int(list[2]) / int(list[1]))) * 100
-    Monitor.objects.create(server_id=i.id, cpu_use=cpu, mem_use=mem, )
+
+    in1 = ssh(ip=i.ip, port=i.port, username=i.username, password=i.password, cmd="cat /proc/net/dev  |  grep eth0  ")
+    in2 = in1['data'].split()
+
+    time.sleep(1)
+
+    in3 = ssh(ip=i.ip, port=i.port, username=i.username, password=i.password,cmd="cat /proc/net/dev  |  grep eth0  ")
+    in4 = in3['data'].split()
+
+    in_network = int((int(in4[1]) - int(in2[1]))/1024/10*8)
+    out_network = int((int(in4[9]) - int(in2[9]))/1024/10*8)
+    Monitor.objects.create(server_id=i.id, cpu_use=cpu, mem_use=mem,in_use=in_network,out_use=out_network)
+
+
+
+
+
 
 @app.task
 def monitor_job():
@@ -55,3 +71,6 @@ def monitor_job():
     for i in t_list:
         i.join()
     print("结束了")
+
+
+

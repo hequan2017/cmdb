@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ['*', ]
 # Application definition
 
 INSTALLED_APPS = [
-    'django_crontab',
+    # 'django_crontab',
     'jigui.apps.SuitConfig',
     'django.contrib.admin',
     'django.contrib.auth',

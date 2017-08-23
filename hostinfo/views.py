@@ -276,13 +276,20 @@ def host_show(request,nid):#性能展示
         date = []
         cpu_use = []
         mem_use = []
+        in_use= []
+        out_use=[]
         for i in all:
             if i.server_id == int(nid):
                 date.append(i.create_date.strftime("%m-%d %H:%M"))
                 cpu_use.append(i.cpu_use)
                 mem_use.append(i.mem_use)
-                
-        return render(request, 'host/show.html',{'cpu':cpu,'mem':mem,"hostid":nid, 'date':date ,'cpu_use':cpu_use, 'mem_use':mem_use })
+                in_use.append(i.in_use)
+                out_use.append(i.out_use)
+
+
+        return render(request, 'host/show.html',{'cpu':cpu,'mem':mem,"hostid":nid, 'date':date ,'cpu_use':cpu_use, 'mem_use':mem_use,
+                                                 'in_use':in_use,'out_use':out_use
+                                                 })
     
     except Exception as e:
         host = Host.objects.filter(id__gt=0)
@@ -298,17 +305,42 @@ def host_show_api(request):#性能展示api
         id = request.GET.get('id',None)
         all = Monitor.objects.all()
         date=[]
+        in_use = []
+        out_use = []
         cpu_use=[]
         mem_use=[]
+
+
         for i in all:
             if  i.server_id == int(id):
                 date.append(i.create_date.strftime("%m-%d %H:%M"))
                 cpu_use.append(i.cpu_use)
                 mem_use.append(i.mem_use)
                 
-        ret = {'date':date ,'cpu_use':cpu_use,'mem_use':mem_use}
+        ret = {'date':date ,'cpu_use':cpu_use,'mem_use':mem_use,
+               }
         
         return HttpResponse(json.dumps(ret))
+
+
+@login_required(login_url="/login.html")
+def host_network_api(request):  # 性能展示api
+    if request.method == 'GET':
+        id = request.GET.get('id', None)
+        all = Monitor.objects.all()
+        date = []
+        in_use = []
+        out_use = []
+        for i in all:
+            if i.server_id == int(id):
+                date.append(i.create_date.strftime("%m-%d %H:%M"))
+                in_use.append(i.in_use)
+                out_use.append(i.out_use)
+
+        ret = {'date': date, 'in_use': in_use, 'out_use': out_use}
+        return HttpResponse(json.dumps(ret))
+
+
 
 
 
