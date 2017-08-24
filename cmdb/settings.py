@@ -1,6 +1,3 @@
-
-
-
 """
 Django settings for cmdb project.
 
@@ -155,8 +152,14 @@ import djcelery
 djcelery.setup_loader()
 
 BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 
-CELERY_IMPORTS = ('sh.tasks')
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Shanghai'
+
+CELERY_IMPORTS = ('sh.tasks',)
 
 
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'

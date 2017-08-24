@@ -7,9 +7,7 @@ import threading,time
 
 platforms.C_FORCE_ROOT = True
 
-app= Celery(broker="redis://127.0.0.1:6379/0",)
-
-
+app= Celery('cmdb',)
 
 @app.task
 def add(x, y):

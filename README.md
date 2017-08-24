@@ -7,11 +7,11 @@
 
 DEMO
 ---------------
-* 登录：`http://42.62.6.54:8001/index.html`       ##做了特殊处理，主机密码错误也可以看见CPU和内存使用率。只限已经添加的 42.62.6.54
+* 登录：`http://42.62.55.58:8002/`      ##请不要删除默认添加的服务器
 
 * 默认用户名`admin` ,密码`1qaz.2wsx`
 
-* 后台 登陆：  `http://42.62.6.54:8001/admin`
+* 后台 登陆：  `http://42.62.55.58:8002//admin`
 
 * github链接：`https://github.com/hequan2017/cmdb`
 
@@ -39,26 +39,57 @@ DEMO
 
 
 
-
 * 配置 celery 异步任务
 
-执行`install_redis.sh` ,启动 `nohup  src/redis-server  > /dev/null  2>&1  &`
+执行 `install_redis.sh` 
 
 
-`python manage.py makemigrations  djkombu   djcelery`
+安装supervisor  ##管理  进程
 
 
-`python manage.py  migrate`
+`pip2 install    supervisor`      ##   supervisor 只支持 python2,不影响启动python3
 
 
-`nohup python manage.py celery worker  -c  4   --loglevel=info    > /dev/null  2>&1  &`   ##启动worker
+生成配置文件，且放在/etc目录下
+`echo_supervisord_conf > /etc/supervisord.conf  `
+ 
+
+为了不将所有新增配置信息全写在一个配置文件里，这里新建一个文件夹，每个程序设置一个配置文件，相互隔离
+`mkdir /etc/supervisord.d/  `
+ 
+
+修改配置文件
+`vim /etc/supervisord.conf`
 
 
-`nohup   python manage.py celery beat    > /dev/null  2>&1  &`  ##启动任务调度器
+加入以下配置信息
+`[include]
+files = /etc/supervisord.d/*.conf`
+
+
+在supervisord.conf中设置通过web可以查看管理的进程，加入以下代码（默认即有，取消注释修改即可）	
+`[inet_http_server] 
+port=0.0.0.0:9001 
+username=user      
+password=123`
+
+
+
+将 `supervisor.conf` 拷贝到 `/etc/supervisord.d/`下面
+
+
+启动   `/usr/bin/python2.7 /usr/bin/supervisord -c /etc/supervisord.conf`
+
+
+登陆 0.0.0.0:9001 账号user  密码123  就可以登陆进程管理界面
 
 
 
 * 执行`install_webssh.sh` 脚本， 安装`webconsole`模块。   需要修改的内容，可以看脚本。根据自己的情况修改。
+
+
+`python manage.py makemigrations`
+`python manage.py  migrate`
 
 
 
@@ -66,12 +97,10 @@ DEMO
 
 
 
-
 版本2.3
 -------
 1. celery 异步任务。  可进后台  点击 首页 › Djcelery ›    进行管理
 ![图片](https://github.com/hequan2017/cmdb/blob/master/static/img/9.png)
-
 
 
 
