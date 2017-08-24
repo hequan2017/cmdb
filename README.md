@@ -12,7 +12,7 @@ DEMO
 
 * 默认用户名`admin` ,密码`1qaz.2wsx`
 
-* 后台 登陆：  `http://42.62.55.58:8002//admin`
+* 后台 登陆：  `http://42.62.55.58:8002/admin`
 
 * github链接：`https://github.com/hequan2017/cmdb`
 
@@ -30,15 +30,16 @@ DEMO
 * 服务器请yum 安装  `sshpass` ，不然无法获取资产信息。
 
 
-* `git  clone  git@github.com:hequan2017/cmdb.git`
+```
+git  clone  git@github.com:hequan2017/cmdb.git
 
-* `cd cmdb/`
+cd cmdb/
 
-* `pip install -r requirements.txt`     安装所需的模块
+pip install -r requirements.txt     
 
-* `pip install https://github.com/darklow/django-suit/tarball/v2`  需要从这里下载  必须用这个版本，其他版本的suit不支持1.11版本django
-
-
+pip install https://github.com/darklow/django-suit/tarball/v2
+```
+需要从这里下载  必须用这个版本，其他版本的suit不支持1.11版本django
 
 
 
@@ -74,29 +75,25 @@ DEMO
 * 加入以下配置信息
 
 
-`[include]`
-
-`files = /etc/supervisord.d/*.conf`
+```
+[include]
+files = /etc/supervisord.d/*.conf
+```
 
 
 * 在supervisord.conf中设置通过web可以查看管理的进程，加入以下代码（默认即有，取消注释修改即可）	
 
 
-`[inet_http_server] `
-
-
-`port=0.0.0.0:9001 `
-
-
-`username=user   `
-
-   
-`password=123`
+```
+[inet_http_server] 
+port=0.0.0.0:9001 
+username=user
+password=123
+```
 
 
 
 * 将 `supervisor.conf` 拷贝到 `/etc/supervisord.d/`下面
-
 
 
 * 执行`install_webssh.sh` 脚本， 安装`webconsole`模块。   需要修改的内容，可以看脚本。根据自己的情况修改。
@@ -164,65 +161,65 @@ DEMO
 
 
 历史
-------------------------``
+------------------------
 
 版本更新1.7.5
 
-1 批量执行shell/yml
+1. 批量执行shell/yml
 
 
 版本更新 1.7
 
-1 版本小优化
+1. 版本小优化
 
-2 更新后台admin模块 为suit v2版本
+2. 更新后台admin模块 为suit v2版本
 
 
 
 版本更新 1.6
 
-1 批量执行命令
+1. 批量执行命令
 
 
 版本更新1.5.5
 
-1 版本小优化
+1. 版本小优化
 
 
 版本更新1.5
 
-1 增加资产更新，分别为 添加 查看 修改 更新 删除。 可真实获取到服务器资产
+1. 增加资产更新，分别为 添加 查看 修改 更新 删除。 可真实获取到服务器资产
 
 
 版本更新1.4
 
-1 增加命令行模式
+1. 增加命令行模式
 
-2 增加历史命令记录
+2. 增加历史命令记录
 
 
 版本更新1.3
 
-1 新增主机管理板块，采用模态对话框。
+1. 新增主机管理板块，采用模态对话框。
 
-2 增加更新服务器时间板块，采用ansible-playbook ，需要安装 ansible模块。 操作的命令可以看hostinfo/ansible_api/cmd.yml文件
+2. 增加更新服务器时间板块，采用ansible-playbook ，需要安装 ansible模块。 操作的命令可以看hostinfo/ansible_api/cmd.yml文件
 
 
 版本更新1.2
 
-1 新增权限模块，采用admin自带的auth ，实现简单的权限管理。
+1. 新增权限模块，采用admin自带的auth ，实现简单的权限管理。
 
 无添加权限的，看不见 添加板块 ，同时对权限进行判断， 无权限 打不可，显示 error界面。
-2 根据权限 判断 是否为 管理员。
+2. 根据权限 判断 是否为 管理员。
 
 
 版本更新1.1.2
 
-1 修复了echarts 自适应更改大小。
+1 .修复了echarts 自适应更改大小。
 
-2 更换了admin，采用django-suit 界面更好看，中文化。 需要安装 django-suit 模块。 admin的 帐号密码是 admin 1qaz.2wsx http://42.62.6.54:8001/admin
+2. 更换了admin，采用django-suit 界面更好看，中文化。 需要安装 django-suit 模块。 admin的 帐号密码是 admin 1qaz.2wsx http://42.62.6.54:8001/admin
 
 
 版本更新1.1.1
 
-1 新增 图形化展示数据， 采用百度 echart 动态展示 数据。
+1. 新增 图形化展示数据， 采用百度 echart 动态展示 数据。

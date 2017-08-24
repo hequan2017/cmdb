@@ -63,7 +63,7 @@ def host_add(request):  ##添加
                 ret['error'] = 'IP太短了,不能为空'
         except Exception as e:
             ret['status'] = False
-            ret['error'] = '添加请求错误,{}'.format(e)
+            ret['error'] = '添加请求错误,{} 或者  服务器端 没有 yum install sshpass'.format(e)
     return HttpResponse(json.dumps(ret))
 
 
@@ -317,9 +317,7 @@ def host_show_api(request):#性能展示api
                 cpu_use.append(i.cpu_use)
                 mem_use.append(i.mem_use)
                 
-        ret = {'date':date ,'cpu_use':cpu_use,'mem_use':mem_use,
-               }
-        
+        ret = {'date':date ,'cpu_use':cpu_use,'mem_use':mem_use, }
         return HttpResponse(json.dumps(ret))
 
 
@@ -345,7 +343,7 @@ def host_network_api(request):  # 性能展示api
 
 
 @login_required(login_url="/login.html")
-def host_web_ssh(request):
+def host_web_ssh(request):   ##  web ssh 登陆
     if request.method == 'POST':
         id = request.POST.get('id', None)
         obj = Host.objects.filter(id=id).first()

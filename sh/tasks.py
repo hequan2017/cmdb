@@ -22,14 +22,14 @@ def sendmail(mail):
     print('mail sent.')
     return mail['to']
 
-@app.task
+
 def job(id):  ##计划任务
 
     i = Host.objects.filter(id=id).first()
     cpu1 = ssh(ip=i.ip, port=i.port, username=i.username, password=i.password, cmd=" top -bn 1 -i -c | grep Cpu   ")
     cpu2 = cpu1['data'].split()
-    cpu = cpu2[1].split('%')[0]
-
+    cpu3 = cpu2[1].split('%')
+    cpu = cpu3[0]
 
     total = ssh(ip=i.ip, port=i.port, username=i.username, password=i.password, cmd=" free | grep  Mem:  ")
     list = total['data'].split(" ")
@@ -60,6 +60,8 @@ def monitor_job():
 
     print(i_list)
 
+
+
     t_list = []
     for i in i_list:  ##循环调用
         t = threading.Thread(target=job, args=[i, ])
@@ -67,7 +69,7 @@ def monitor_job():
         t_list.append(t)
     for i in t_list:
         i.join()
-    print("结束了")
+    print("-------------end----------------")
 
 
 
