@@ -14,13 +14,6 @@ DEMO
 
 * 后台 登陆：  `http://42.62.55.58:8002//admin`
 
-* 登录：`http://42.62.55.58:8002/`       ##做了特殊处理，主机密码错误也可以看见CPU和内存使用率。只限已经添加的 42.62.6.54
-
-* 默认用户名`admin` ,密码`1qaz.2wsx`
-
-* 后台 登陆：  `http://42.62.55.58:8002/admin`
-
-
 * github链接：`https://github.com/hequan2017/cmdb`
 
 * 博客： `http://hequan.blog.51cto.com/`
