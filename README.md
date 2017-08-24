@@ -11,7 +11,7 @@ DEMO
 
 * 默认用户名`admin` ,密码`1qaz.2wsx`
 
-* 后台 登陆：  `http://42.62.6.54:8001/admin`
+* 后台 登陆：  `http://42.62.55.58:8002/admin`
 
 * github链接：`https://github.com/hequan2017/cmdb`
 
