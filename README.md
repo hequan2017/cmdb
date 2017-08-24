@@ -34,78 +34,94 @@ DEMO
 * 环境 python3.6.1  django1.11.4
 
 
-服务器请yum 安装  `sshpass` ，不然无法获取资产信息。
+* 服务器请yum 安装  `sshpass` ，不然无法获取资产信息。
 
 
-`git  clone  git@github.com:hequan2017/cmdb.git`
+* `git  clone  git@github.com:hequan2017/cmdb.git`
 
-`cd cmdb/`
+* `cd cmdb/`
 
-`pip install -r requirements.txt`     安装所需的模块
+* `pip install -r requirements.txt`     安装所需的模块
 
-`pip install https://github.com/darklow/django-suit/tarball/v2`  需要从这里下载  必须用这个版本，其他版本的suit不支持1.11版本django
-
-
-
-* 配置 celery 异步任务
-
-执行 `install_redis.sh` 
+* `pip install https://github.com/darklow/django-suit/tarball/v2`  需要从这里下载  必须用这个版本，其他版本的suit不支持1.11版本django
 
 
-安装supervisor  ##管理  进程
 
 
-`pip2 install    supervisor`      ##   supervisor 只支持 python2,不影响启动python3
+
+##### 配置 celery 异步任务
+
+* 执行 `install_redis.sh` 
+
+##### 安装 `supervisor  `
+
+* `supervisor` 只支持 `python2`,不影响启动`python3`
+ 
+ 
+ `pip2 install    supervisor`      
 
 
-生成配置文件，且放在/etc目录下
+* 生成配置文件，且放在`/etc`目录下
+
+
 `echo_supervisord_conf > /etc/supervisord.conf  `
  
 
-为了不将所有新增配置信息全写在一个配置文件里，这里新建一个文件夹，每个程序设置一个配置文件，相互隔离
+* 为了不将所有新增配置信息全写在一个配置文件里，这里新建一个文件夹，每个程序设置一个配置文件，相互隔离
+
 `mkdir /etc/supervisord.d/  `
  
 
-修改配置文件
+* 修改配置文件
+
+
 `vim /etc/supervisord.conf`
 
 
-加入以下配置信息
-`[include]
-files = /etc/supervisord.d/*.conf`
+* 加入以下配置信息
 
 
-在supervisord.conf中设置通过web可以查看管理的进程，加入以下代码（默认即有，取消注释修改即可）	
-`[inet_http_server] 
-port=0.0.0.0:9001 
-username=user      
-password=123`
+`[include]`
+
+`files = /etc/supervisord.d/*.conf`
+
+
+* 在supervisord.conf中设置通过web可以查看管理的进程，加入以下代码（默认即有，取消注释修改即可）	
+
+
+`[inet_http_server] `
+
+
+`port=0.0.0.0:9001 `
+
+
+`username=user   `
+
+   
+`password=123`
 
 
 
-将 `supervisor.conf` 拷贝到 `/etc/supervisord.d/`下面
-
-
-启动   `/usr/bin/python2.7 /usr/bin/supervisord -c /etc/supervisord.conf`
-
-
-登陆 0.0.0.0:9001 账号user  密码123  就可以登陆进程管理界面
+* 将 `supervisor.conf` 拷贝到 `/etc/supervisord.d/`下面
 
 
 
 * 执行`install_webssh.sh` 脚本， 安装`webconsole`模块。   需要修改的内容，可以看脚本。根据自己的情况修改。
 
 
-`python manage.py makemigrations`
-`python manage.py  migrate`
+
+*  `/usr/bin/python2.7 /usr/bin/supervisord -c /etc/supervisord.conf`
+
+* 登陆 `0.0.0.0:9001` 账号 `user`  密码 `123`  就可以登陆进程管理界面
+
+*  `python manage.py  runserver  0.0.0.0:8001`    ##启动服务
 
 
-
-`python manage.py  runserver  0.0.0.0:8001`  ##启动服务
 
 版本2.4
 -------------
 1. 进程管理 supervisor
+
 ![图片](https://github.com/hequan2017/cmdb/blob/master/static/img/10.png)
 
 
