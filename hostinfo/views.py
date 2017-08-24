@@ -143,7 +143,7 @@ def ssh(ip,port,username,password,cmd):
             ssh.close()
             return ret
     except Exception as e:
-        error = "账号或密码错误,请修改保存再执行命令"
+        error = "账号或密码错误,请修改保存{}".format(e)
         ret = {"ip": ip, "data": error}
         return   ret
         
@@ -243,7 +243,7 @@ def hostupdate(request):  ## 更新
 
         except Exception as e:
             ret['status'] = False
-            ret['error'] = '账号或密码错误'
+            ret['error'] = '账号或密码错误{}'.format(e)
         return HttpResponse(json.dumps(ret))
     
     
@@ -264,8 +264,10 @@ def host_show(request,nid):#性能展示
     try:
         i = Host.objects.filter(id=nid).first()
         cpu1 = ssh(ip=i.ip, port=i.port, username=i.username, password=i.password, cmd=" top -bn 1 -i -c | grep Cpu   ")
-        cpu = float(cpu1['data'][8:14])
-    
+        cpu2 = cpu1['data'].split()
+        cpu = cpu2[1].split('%')[0]
+
+
         total = ssh(ip=i.ip, port=i.port, username=i.username, password=i.password, cmd=" free | grep  Mem:  ")
         list = total['data'].split(" ")
         while ''  in list:
@@ -294,7 +296,7 @@ def host_show(request,nid):#性能展示
     except Exception as e:
         host = Host.objects.filter(id__gt=0)
         jifang_list = Business.objects.all()
-        msg = "账号密码错误，请修改"
+        msg = "{}".format(e)
         return render(request, 'host/host.html', {"host_list": host, "jifang_list": jifang_list,'msg':msg,})
 
 
@@ -305,8 +307,6 @@ def host_show_api(request):#性能展示api
         id = request.GET.get('id',None)
         all = Monitor.objects.all()
         date=[]
-        in_use = []
-        out_use = []
         cpu_use=[]
         mem_use=[]
 

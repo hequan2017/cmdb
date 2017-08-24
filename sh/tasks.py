@@ -27,7 +27,10 @@ def job(id):  ##计划任务
 
     i = Host.objects.filter(id=id).first()
     cpu1 = ssh(ip=i.ip, port=i.port, username=i.username, password=i.password, cmd=" top -bn 1 -i -c | grep Cpu   ")
-    cpu = float(cpu1['data'][8:14])
+    cpu2 = cpu1['data'].split()
+    cpu = cpu2[1].split('%')[0]
+
+
     total = ssh(ip=i.ip, port=i.port, username=i.username, password=i.password, cmd=" free | grep  Mem:  ")
     list = total['data'].split(" ")
     while '' in list:
