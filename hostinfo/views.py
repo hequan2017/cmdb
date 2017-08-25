@@ -4,7 +4,6 @@ import json
 import paramiko
 from django.contrib.auth.decorators import permission_required, login_required
 
-
 from  hostinfo.ansible_runner.runner   import AdHocRunner
 
 
@@ -43,7 +42,6 @@ def host_add(request):  ##添加
 
                 result = runner.run(task_tuple=task_tuple, pattern='all', task_name='Ansible Ad-hoc')
                 data = result['contacted']['host'][0]['ansible_facts']
-                print(data)
                 hostname = data['ansible_nodename']
                 osversion = data['ansible_distribution'] + data['ansible_distribution_version']
                 disk = str(sum([int(data["ansible_devices"][i]["sectors"]) * \
@@ -143,7 +141,7 @@ def ssh(ip,port,username,password,cmd):
             ssh.close()
             return ret
     except Exception as e:
-        error = "账号或密码错误,请修改保存{}".format(e)
+        error = "账号或密码错误,{}".format(e)
         ret = {"ip": ip, "data": error}
         return   ret
         

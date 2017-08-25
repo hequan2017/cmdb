@@ -1,5 +1,7 @@
 from django.db import models
 
+
+
 TOOL_RUN_TYPE = (
     (0, 'shell'),
     (1, 'python'),
@@ -36,4 +38,7 @@ class ToolsScript(models.Model):
         verbose_name = "工具"
         verbose_name_plural = verbose_name
         
+
+
+
 

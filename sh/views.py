@@ -3,6 +3,8 @@ from sh.models import ToolsScript
 from hostinfo.models import Host,History
 import json,os
 from django.contrib.auth.decorators import permission_required, login_required
+from djcelery import models as celery_models
+
 
 import sys
 sys.path.append('../hostinfo/ansible_runner/')
@@ -118,18 +120,18 @@ def shell_sh(request):  ##执行脚本-执行
             
             for s in sh:
                 if s.tool_run_type == 0:
-                    with  open('sh/shell/test.sh'.format(s.id), 'w+') as f:
+                    with  open('sh/shell/test.sh', 'w+') as f:
                         f.write(s.tool_script)
                         a = 'sh/shell/{}.sh'.format(s.id)
                     os.system("sed 's/\r//'  sh/shell/test.sh >  {}".format(a))
                     
                 elif s.tool_run_type == 1:
-                    with  open('sh/shell/test.py'.format(s.id), 'w+') as f:
+                    with  open('sh/shell/test.py', 'w+') as f:
                         f.write(s.tool_script)
                         p = 'sh/shell/{}.py'.format(s.id)
                     os.system("sed 's/\r//'  sh/shell/test.py >  {}".format(p))
                 elif s.tool_run_type ==  2:
-                    with  open('sh/shell/test.yml'.format(s.id), 'w+') as f:
+                    with  open('sh/shell/test.yml', 'w+') as f:
                         f.write(s.tool_script)
                         y = 'sh/shell/{}.yml'.format(s.id)
                     os.system("sed 's/\r//'  sh/shell/test.yml >  {}".format(y))
@@ -197,4 +199,5 @@ def shell_sh(request):  ##执行脚本-执行
                ret['error'] = '未知错误 {}'.format(e)
                return HttpResponse(json.dumps(ret))
 
-        
+
+

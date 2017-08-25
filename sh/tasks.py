@@ -1,8 +1,17 @@
 import time
 from celery import Celery, platforms
 from hostinfo.models import Host,Monitor
+from  sh.models import ToolsScript
 from hostinfo.views import ssh
 import threading,time
+import sys,os
+sys.path.append('../hostinfo/ansible_runner/')
+
+
+from   hostinfo.ansible_runner.runner      import AdHocRunner,PlayBookRunner
+from   hostinfo.ansible_runner.callback    import CommandResultCallback
+
+
 
 
 platforms.C_FORCE_ROOT = True
@@ -57,11 +66,7 @@ def monitor_job():
     i_list = []
     for i in object:
         i_list.append(i.id)
-
     print(i_list)
-
-
-
     t_list = []
     for i in i_list:  ##循环调用
         t = threading.Thread(target=job, args=[i, ])
@@ -70,6 +75,16 @@ def monitor_job():
     for i in t_list:
         i.join()
     print("-------------end----------------")
+
+
+@app.task
+def  cmd_job(host,cmd):
+    i = Host.objects.get(ip=host)
+    cmd=cmd
+    a = ssh(ip=i.ip, port=i.port, username=i.username, password=i.password, cmd=cmd)
+    return  a['data']
+
+
 
 
 
