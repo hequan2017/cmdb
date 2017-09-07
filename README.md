@@ -1,5 +1,19 @@
 # CMDB
 
+
+##### 本项目停止更新，整体迁移到 `https://github.com/hequan2017/autoops` ,欢迎大家使用。
+
+##### autoops 是基于本项目，进行二次重构，可以看出本项目的升级版本。 架构更新，代码更少。 之后会继续在autoops 上 开发新功能。
+
+##### 本项目大约历时3个月左右，第一个django项目，完成了django入门。收工。
+
+
+
+
+
+
+
+
 架构
 ----------------
 ![图片](https://github.com/hequan2017/cmdb/blob/master/static/img/111.png)
