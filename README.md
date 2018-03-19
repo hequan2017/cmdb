@@ -10,6 +10,10 @@
 #####  强烈建议去 看我的新项目  autoops
 
 
+#### 推荐一下 自己的新项目 ，基于 云主机 管理的CMDB平台。
+
+https://github.com/hequan2017/chain
+
 架构
 ----------------
 ![图片](https://github.com/hequan2017/cmdb/blob/master/static/img/111.png)
