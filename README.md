@@ -1,7 +1,7 @@
 # CMDB
 
 
-##### 本项目停止更新，整体迁移到 `https://github.com/hequan2017/autoops` ,欢迎大家使用。
+### 本项目停止更新
 
 
 ### 推荐一下 现在自己在做的  django 基础开发模板
