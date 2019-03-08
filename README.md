@@ -1,22 +1,22 @@
 # CMDB
 
 
-### 本项目停止更新
+## 本项目停止更新
 
 
-### 推荐一下 现在自己在做的  django 基础开发模板
+## 推荐一下 现在自己在做的  django 基础开发模板
 
 https://github.com/hequan2017/seal/
 
 
 
 
-架构
+## 架构
 ----------------
 ![图片](https://github.com/hequan2017/cmdb/blob/master/static/img/111.png)
 
 
-DEMO
+## DEMO
 ---------------
 
 * github链接：`https://github.com/hequan2017/cmdb`
@@ -26,7 +26,7 @@ DEMO
 * 群 号：`620176501`   <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=bbe5716e8bd2075cb27029bd5dd97e22fc4d83c0f61291f47ed3ed6a4195b024"><img border="0" src="https://github.com/hequan2017/cmdb/blob/master/static/img/group.png"  alt="cmdb开发讨论群" title="cmdb开发讨论群"></a>
 
 
-部署说明
+## 部署说明
 -------------------
 
 * 环境 python3.6.1  django1.11.4
@@ -48,11 +48,11 @@ pip install https://github.com/darklow/django-suit/tarball/v2
 
 
 
-##### 配置 celery 异步任务
+## 配置 celery 异步任务
 
 * 执行 `install_redis.sh` 
 
-##### 安装 `supervisor  `
+## 安装 `supervisor  `
 
 * `supervisor` 只支持 `python2`,不影响启动`python3`
  
@@ -111,7 +111,7 @@ password=123
 
 *  `python manage.py  runserver  0.0.0.0:8001`    ##启动服务
 
-
+## 版本
 
 版本2.4
 -------------
@@ -165,7 +165,7 @@ password=123
 
 
 
-历史
+## 历史
 ------------------------
 
 版本更新1.7.5
