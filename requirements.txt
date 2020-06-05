@@ -1,4 +1,4 @@
-django==1.11.20
+django==1.11.29
 ansible
 paramiko
 celery==3.1.25
