@@ -1,7 +1,7 @@
 django==1.11.20
 ansible
 paramiko
-celery==3.1.25
+celery==5.2.2
 celery-with-redis==3.0
 django-celery==3.2.1
 django-kombu==0.9.4
