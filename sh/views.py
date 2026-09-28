@@ -3,7 +3,6 @@ from sh.models import ToolsScript
 from hostinfo.models import Host,History
 import json,os
 from django.contrib.auth.decorators import permission_required, login_required
-from djcelery import models as celery_models
 
 
 import sys
