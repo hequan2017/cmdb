@@ -1,5 +1,5 @@
 import time
-from celery import Celery, platforms
+from celery import shared_task
 from hostinfo.models import Host,Monitor
 from  sh.models import ToolsScript
 from hostinfo.views import ssh
@@ -14,19 +14,15 @@ from   hostinfo.ansible_runner.callback    import CommandResultCallback
 
 
 
-platforms.C_FORCE_ROOT = True
-
-app= Celery('cmdb',)
-
-@app.task
+@shared_task
 def add(x, y):
     print(x,y)
     return x + y
 
 
-@app.task
+@shared_task
 def sendmail(mail):
-    print('sending mail to %s...' % mail['to'])
+    print('sending mail to ' + str(mail['to']) + '...')
     time.sleep(2.0)
     print('mail sent.')
     return mail['to']
@@ -60,7 +56,7 @@ def job(id):  ##计划任务
 
 
 
-@app.task
+@shared_task
 def monitor_job():
     object = Host.objects.all()
     i_list = []
@@ -77,14 +73,9 @@ def monitor_job():
     print("-------------end----------------")
 
 
-@app.task
+@shared_task
 def  cmd_job(host,cmd):
     i = Host.objects.get(ip=host)
     cmd=cmd
     a = ssh(ip=i.ip, port=i.port, username=i.username, password=i.password, cmd=cmd)
     return  a['data']
-
-
-
-
-
