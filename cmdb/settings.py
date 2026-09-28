@@ -41,8 +41,8 @@ INSTALLED_APPS = [
     'index',
     'hostinfo',
     'sh',
-    'djcelery',
-    'djkombu',
+    'django_celery_beat',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -148,11 +148,8 @@ LOGIN_URL = '/login.html'
 #     ('* * * * *', 'cmdb.cron.monitor_job', '>> /tmp/1234.log')
 # ]
 
-import djcelery
-djcelery.setup_loader()
-
-BROKER_URL = 'redis://127.0.0.1:6379/0'
-CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_RESULT_BACKEND = 'django-db'
 
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
@@ -162,4 +159,4 @@ CELERY_TIMEZONE = 'Asia/Shanghai'
 CELERY_IMPORTS = ('sh.tasks',)
 
 
-CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
