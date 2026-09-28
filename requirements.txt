@@ -1,10 +1,9 @@
-django==1.11.20
+Django==5.2.16
+django-celery-beat==2.8.1
+django-celery-results==2.6.0
+celery==5.5.3
+redis==5.2.1
 ansible
 paramiko
-celery==3.1.25
-celery-with-redis==3.0
-django-celery==3.2.1
-django-kombu==0.9.4
 flower
 supervisor
-
